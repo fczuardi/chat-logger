@@ -1,0 +1,28 @@
+{
+  "name": "telegram-logger",
+  "version": "0.1.0",
+  "description": "A logger bot for Telegram groups",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/convcomm/telegram-logger.git"
+  },
+  "keywords": [
+    "telegram",
+    "logger",
+    "bot"
+  ],
+  "author": "Fabricio C Zuardi",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/convcomm/telegram-logger/issues"
+  },
+  "homepage": "https://github.com/convcomm/telegram-logger#readme",
+  "devDependencies": {
+    "telegram-bot-api": "^1.0.0"
+  }
+}
