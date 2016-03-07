@@ -1,5 +1,6 @@
 import telegram from 'telegram-bot-api';
 import { createStore } from 'redux';
+import { GET_ME, ERROR, UPDATE } from './src/actionTypes';
 import { telegramReducer } from './src/telegram-reducer';
 
 const store = createStore(telegramReducer);
@@ -13,20 +14,20 @@ const api = new telegram({
 api.getMe()
     .then( (data) => {
         store.dispatch({
-            type: 'GET_ME',
+            type: GET_ME,
             ...data
         });
     })
     .catch( (error) => {
         store.dispatch({
-            type: 'ERROR',
+            type: ERROR,
             error: error
         });
     });
 
 api.on('message', (message) => {
     store.dispatch({
-        type: 'UPDATE',
+        type: UPDATE,
         message: message
     });
 });
