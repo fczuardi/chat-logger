@@ -1,6 +1,9 @@
-var telegram = require('telegram-bot-api');
+import telegram from 'telegram-bot-api';
+import { createStore } from 'redux';
+import { telegramReducer } from './src/telegram-reducer';
 
-var api = new telegram({
+const store = createStore(telegramReducer);
+const api = new telegram({
         token: process.env.TELEGRAM_KEY,
         updates: {
             enabled: true
@@ -8,16 +11,32 @@ var api = new telegram({
 });
 
 api.getMe()
-.then(function(data)
-{
-    console.log(data);
-})
-.catch(function(err)
-{
-    console.log(err);
+    .then( (data) => {
+        store.dispatch({
+            type: 'GET_ME',
+            ...data
+        });
+    })
+    .catch( (error) => {
+        store.dispatch({
+            type: 'ERROR',
+            error: error
+        });
+    });
+
+api.on('message', (message) => {
+    store.dispatch({
+        type: 'UPDATE',
+        message: message
+    });
 });
 
-api.on('message', function(message)
-{
-    console.log(message);
+store.subscribe(() => {
+    console.log(
+`
+State
+=====
+${JSON.stringify(store.getState(), ' ', 2)}
+`
+    );
 });
