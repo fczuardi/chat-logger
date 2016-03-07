@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node .",
-    "test": "ava"
+    "test": "ava --require 'babel-core/register'"
   },
   "repository": {
     "type": "git",
