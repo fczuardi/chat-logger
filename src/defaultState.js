@@ -1,9 +1,10 @@
 export default {
-    botToken: process.env.TELEGRAM_KEY,
-    botId: null,
-    botFirstName: null,
-    botLastName: null,
-    botUsername: null,
+    id: null,
+    tgToken: null,
+    tgId: null,
+    tgFirstName: null,
+    tgLastName: null,
+    tgUsername: null,
     messages: [],
     errors: []
 };

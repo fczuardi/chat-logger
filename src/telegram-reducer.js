@@ -4,20 +4,26 @@
 // for [Telegram Bot API](https://core.telegram.org/bots/api) actions.
 
 // action names used by this reducer
-import { GET_ME, ERROR, UPDATE } from './actionTypes';
+import { SETUP, GET_ME, ERROR, UPDATE } from './actionTypes';
 
 // the default initial state
 import defaultState from './defaultState';
 
 export function telegramReducer(state = defaultState, action) {
     switch (action.type) {
+        case SETUP:
+            return {
+                ...state,
+                id: action.id,
+                tgToken: action.token
+            };
         case GET_ME:
             return {
                 ...state,
-                botId: action.id,
-                botFirstName: action.first_name,
-                botLastName: action.last_name,
-                botUsername: action.username
+                tgId: action.id,
+                tgFirstName: action.first_name,
+                tgLastName: action.last_name,
+                tgUsername: action.username
             };
         case ERROR:
             return {
