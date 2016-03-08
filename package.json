@@ -9,7 +9,7 @@
     "build:npm": "rollup --config",
     "prepublish": "npm run build:npm",
     "ppp": "npm version patch && npm publish && git push",
-    "mpp": "npm version minor && npm publish && git push",
+    "mpp": "npm version minor && npm publish && git push"
   },
   "repository": {
     "type": "git",
