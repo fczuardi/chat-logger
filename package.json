@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/convcomm/telegram-logger.git"
+    "url": "git+https://github.com/calamar-io/chat-logger.git"
   },
   "keywords": [
     "telegram",
@@ -23,9 +23,9 @@
   "author": "Fabricio C Zuardi",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/convcomm/telegram-logger/issues"
+    "url": "https://github.com/calamar-io/chat-logger/issues"
   },
-  "homepage": "https://github.com/convcomm/telegram-logger#readme",
+  "homepage": "https://github.com/calamar-io/chat-logger#readme",
   "ava": {
     "babel": {
       "presets": [

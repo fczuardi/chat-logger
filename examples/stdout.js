@@ -6,7 +6,7 @@
 //   - subscribe to all state changes and print the new state to standard output
 //   - connect multiple bots to telegram based on a env var with
 // tokens separeted by space
-//   - use the ADD_USER action to fill up the bot users info under the users and
+//   - use the ADD_USER action to fill up the bot users info under the users
 // object and add their telegram id on the connections object
 //   - setup a listener for the Update event from telegram API on every
 // connection and dispatch an ADD_MESSAGE action to push the new message to the
