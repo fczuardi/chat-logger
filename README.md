@@ -23,7 +23,7 @@ import { loggerReducer } from 'chat-logger';
 let store = createStore(loggerReducer);
 ```
 
-[More examples](https://github.com/convcomm/chat-logger/tree/master/examples).
+[More examples][examples].
 
 ## Contribute
 
@@ -31,16 +31,26 @@ let store = createStore(loggerReducer);
 git clone https://github.com/convcomm/chat-logger.git
 cd chat-logger
 npm install
+```
+
+To build the npm package under ```dist/npm```
+```
 npm run build:npm
 ```
 
-To run the [standard output example](https://github.com/convcomm/chat-logger/blob/master/examples/stdout.js):
+To run the [standard output example][stdoutjs]:
+
+- edit the [examples/stdout.js][stdoutjs] file and comment/uncomment the lines
+as instructed in the file.
+- make a copy of the [.env-sample][evsample] file with another name, edit it to
+include your telegram key(s)
 
 ```
 cp .env-sample .env
+
 ```
 
-Edit .env to include the telegram key(s) for your bot(s)
+- edit .env to include the telegram key(s) for your bot(s) and then…
 
 ```
 source .env
@@ -50,4 +60,9 @@ npm start
 
 ## License
 
-- [AGPL-3](https://github.com/convcomm/chat-logger/blob/master/LICENSE.txt)
+- [AGPL-3][license]
+
+[examples]: https://github.com/convcomm/chat-logger/tree/master/examples
+[stdoutjs]: https://github.com/convcomm/chat-logger/blob/master/examples/stdout.js
+[evsample]: https://github.com/calamar-io/chat-logger/blob/master/.env-sample
+[license]: https://github.com/convcomm/chat-logger/blob/master/LICENSE.txt
