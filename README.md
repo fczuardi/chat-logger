@@ -23,6 +23,8 @@ import { loggerReducer } from 'chat-logger';
 let store = createStore(loggerReducer);
 ```
 
+[More examples](https://github.com/convcomm/chat-logger/tree/master/examples).
+
 ## Contribute
 
 ```shell
