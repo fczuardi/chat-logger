@@ -34,6 +34,20 @@ npm install
 npm run build:npm
 ```
 
+To run the [standard output example](https://github.com/convcomm/chat-logger/blob/master/examples/stdout.js):
+
+```
+cp .env-sample .env
+```
+
+Edit .env to include the telegram key(s) for your bot(s)
+
+```
+source .env
+npm start
+```
+
+
 ## License
 
 - [AGPL-3](https://github.com/convcomm/chat-logger/blob/master/LICENSE.txt)
