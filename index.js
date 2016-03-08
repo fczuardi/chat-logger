@@ -1,65 +1,49 @@
-import telegram from 'telegram-bot-api';
 import { createStore } from 'redux';
-import { SETUP, GET_ME, ERROR, UPDATE } from './src/actionTypes';
-import { telegramReducer } from './src/telegram-reducer';
-import config from './src/config.js';
+import { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from './src/actionTypes';
+import { loggerReducer } from './src/loggerReducer';
 
-let tgBots = {};
-let stores = {};
-
-const api = new telegram({
-        token: process.env.TELEGRAM_KEY,
-        updates: {
-            enabled: true
-        }
+let tokens = process.env.TELEGRAM_KEY.split(' ');
+let store = createStore(loggerReducer);
+store.subscribe(() => {
+    console.log(
+`
+State
+=====
+${JSON.stringify(store.getState(), ' ', 2)}
+`
+    );
 });
 
-config.bots.forEach( (botConfig) => {
-    let botId = botConfig.id;
-    let botToken = botConfig.token;
-    let store = createStore(telegramReducer);
+tokens.forEach( (token) => {
     store.dispatch({
-        type: SETUP,
-        id: botId,
-        tgToken: botToken
+        type: CONNECT_TO_TELEGRAM,
+        token: token
     });
-    let api = new telegram({
-        token: botToken,
-        updates: {
-            enabled: true
-        }
-    });
-    api.getMe()
-        .then( (data) => {
-            store.dispatch({
-                type: GET_ME,
-                ...data
-            });
-        })
-        .catch( (error) => {
-            store.dispatch({
-                type: ERROR,
-                error: error
-            });
-        });
-
-    api.on('message', (message) => {
+    let connection = store.getState().connections[token];
+    connection.api.getMe().then( (user) => {
         store.dispatch({
-            type: UPDATE,
-            message: message
+            type: ADD_USER,
+            user: user,
+            connection: connection
         });
+    })
+    .catch( (error) => {
+        console.error(error);
     });
-
-    store.subscribe(() => {
-        console.log(
-    `
-    State (Bot: ${botId})
-    =====
-    ${JSON.stringify(store.getState(), ' ', 2)}
-    `
-        );
-    });
-
-    tgBots[botId] = api;
-    stores[botId] = store;
 });
+
+let connections = store.getState().connections;
+for (var connectionToken in connections){
+    let connection = connections[connectionToken];
+    connection.api.on('message', (message) => {
+        store.dispatch({
+            type: ADD_MESSAGE,
+            id: message.message_id,
+            date: message.date,
+            text: message.text,
+            from: message.from,
+            chat: message.chat,
+            connection: connection
+        })
+    });
+}

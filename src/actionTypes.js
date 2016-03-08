@@ -1,11 +1,5 @@
-const SETUP = 'SETUP';
-const GET_ME = 'GET_ME';
-const ERROR = 'ERROR';
-const UPDATE = 'UPDATE';
+const CONNECT_TO_TELEGRAM = 'CONNECT_TO_TELEGRAM';
+const ADD_USER = 'ADD_USER';
+const ADD_MESSAGE = 'ADD_MESSAGE';
 
-export {
-    SETUP,
-    GET_ME,
-    ERROR,
-    UPDATE
-};
+export { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE };
