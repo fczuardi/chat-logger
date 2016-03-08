@@ -6,7 +6,8 @@
   "scripts": {
     "start": "babel-node ./examples/stdout.js --presets es2015,stage-2",
     "test": "ava --require 'babel-core/register'",
-    "build:npm": "rollup --config"
+    "build:npm": "rollup --config",
+    "pp": "npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
