@@ -14,10 +14,12 @@
 
 
 import { createStore } from 'redux';
+
+// Comment the 2 lines below and uncomment the other 2 to run this example with ```npm start```
+import { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from 'chat-logger';
+import { loggerReducer } from 'chat-logger';
 // import { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from '../src/actionTypes';
-import { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from '../dist/npm';
 // import { loggerReducer } from '../src/loggerReducer';
-import { loggerReducer } from '../dist/npm';
 
 let tokens = process.env.TELEGRAM_KEY.split(' ');
 let store = createStore(loggerReducer);
