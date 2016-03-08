@@ -50,7 +50,6 @@ export function loggerReducer(state = initialState, action) {
                 chatId = action.chat.id,
                 userId = action.from.id;
             let loggerId = state.connections[action.connection.token].userId;
-            console.log('...===+++',loggerId);
             user[userId] = action.from;
             chat[chatId] = action.chat;
             return {

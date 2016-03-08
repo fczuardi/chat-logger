@@ -1,6 +1,23 @@
+// # Redux Standard Output example
+//
+// A sample of how you can use loggerReducer in a Redux app.
+// This example illustrates:
+//   - the setup of a redux store using loggerReducer as the reducer
+//   - subscribe to all state changes and print the new state to standard output
+//   - connect multiple bots to telegram based on a env var with
+// tokens separeted by space
+//   - use the ADD_USER action to fill up the bot users info under the users and
+// object and add their telegram id on the connections object
+//   - setup a listener for the Update event from telegram API on every
+// connection and dispatch an ADD_MESSAGE action to push the new message to the
+// messages list.
+
+
 import { createStore } from 'redux';
-import { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from './src/actionTypes';
-import { loggerReducer } from './src/loggerReducer';
+// import { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from '../src/actionTypes';
+import { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from '../dist/npm';
+// import { loggerReducer } from '../src/loggerReducer';
+import { loggerReducer } from '../dist/npm';
 
 let tokens = process.env.TELEGRAM_KEY.split(' ');
 let store = createStore(loggerReducer);

@@ -1,11 +1,12 @@
 {
-  "name": "telegram-logger",
+  "name": "chat-logger",
   "version": "0.1.0",
-  "description": "A logger bot for Telegram groups",
-  "main": "index.js",
+  "description": "A logger for Telegram messages",
+  "main": "./dist/npm/index.js",
   "scripts": {
-    "start": "babel-node .",
-    "test": "ava --require 'babel-core/register'"
+    "start": "babel-node ./examples/stdout.js --presets es2015,stage-2",
+    "test": "ava --require 'babel-core/register'",
+    "build:npm": "rollup --config"
   },
   "repository": {
     "type": "git",
@@ -14,7 +15,10 @@
   "keywords": [
     "telegram",
     "logger",
-    "bot"
+    "bot",
+    "reducer",
+    "redux",
+    "flux"
   ],
   "author": "Fabricio C Zuardi",
   "license": "AGPL-3.0",
@@ -22,22 +26,27 @@
     "url": "https://github.com/convcomm/telegram-logger/issues"
   },
   "homepage": "https://github.com/convcomm/telegram-logger#readme",
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-2"
-    ]
-  },
   "ava": {
-    "babel": "inherit"
+    "babel": {
+      "presets": [
+        "es2015",
+        "stage-2"
+      ]
+    }
   },
   "devDependencies": {
     "amqplib": "^0.4.1",
     "ava": "^0.12.0",
     "babel-cli": "^6.6.5",
     "babel-preset-es2015": "^6.6.0",
+    "babel-preset-es2015-rollup": "^1.1.1",
     "babel-preset-stage-2": "^6.5.0",
     "redux": "^3.3.1",
+    "rollup": "^0.25.4",
+    "rollup-plugin-babel": "^2.4.0",
+    "rollup-plugin-multi-entry": "^1.1.0"
+  },
+  "dependencies": {
     "telegram-bot-api": "^1.0.0"
   }
 }
