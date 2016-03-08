@@ -7,7 +7,9 @@
     "start": "babel-node ./examples/stdout.js --presets es2015,stage-2",
     "test": "ava --require 'babel-core/register'",
     "build:npm": "rollup --config",
-    "ppp": "npm version patch && npm publish && git push"
+    "prepublish": "npm run build:npm",
+    "ppp": "npm version patch && npm publish && git push",
+    "mpp": "npm version minor && npm publish && git push",
   },
   "repository": {
     "type": "git",
