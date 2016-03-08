@@ -31,3 +31,7 @@ cd chat-logger
 npm install
 npm run build:npm
 ```
+
+## License
+
+- [AGPL-3](https://github.com/convcomm/chat-logger/blob/master/LICENSE.txt)
