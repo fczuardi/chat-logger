@@ -4,7 +4,9 @@
   "description": "A logger for Telegram messages",
   "main": "./dist/npm/index.js",
   "scripts": {
-    "start": "babel-node ./examples/stdout.js --presets es2015,stage-2",
+    "example:telegram": "babel-node ./examples/stdout.js --presets es2015,stage-2",
+    "example:amq": "babel-node ./examples/amq.js --presets es2015,stage-2",
+    "start": "npm run example:telegram",
     "test": "ava --require 'babel-core/register'",
     "build:npm": "rollup --config",
     "prepublish": "npm run build:npm",

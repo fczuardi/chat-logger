@@ -4,7 +4,13 @@
 // for a Telegram Logger based on [Telegram Bot API](https://core.telegram.org/bots/api) actions.
 
 import telegram from 'telegram-bot-api';
-import { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from './actionTypes';
+import amqp from 'amqplib';
+import {
+    CONNECT_TO_TELEGRAM,
+    CONNECT_TO_AMQ,
+    ADD_USER,
+    ADD_MESSAGE
+} from './actionTypes';
 
 const initialState = {
     messages: [],
@@ -32,6 +38,9 @@ export function loggerReducer(state = initialState, action) {
                 ...state,
                 connections: Object.assign({}, state.connections, connection)
             };
+        case CONNECT_TO_AMQ:
+            console.log('CONNECT_TO_AMQ', action);
+            return state;
         case ADD_USER:
             if (action.connection){
                 connection[action.connection.token] = {
