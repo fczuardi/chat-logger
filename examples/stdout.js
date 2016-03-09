@@ -20,6 +20,7 @@ import { createStore } from 'redux';
 // import { loggerReducer } from 'chat-logger';
 import { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from '../src/actionTypes';
 import { loggerReducer } from '../src/loggerReducer';
+import telegram from 'telegram-bot-api';
 
 let tokens = process.env.TELEGRAM_KEY.split(' ');
 let store = createStore(loggerReducer);
@@ -34,9 +35,16 @@ ${JSON.stringify(store.getState(), ' ', 2)}
 });
 
 tokens.forEach( (token) => {
+    let api = new telegram({
+        token: token,
+        updates: {
+            enabled: true
+        }
+    });
     store.dispatch({
         type: CONNECT_TO_TELEGRAM,
-        token: token
+        token: token,
+        api: api
     });
     let connection = store.getState().connections[token];
     connection.api.getMe().then( (user) => {

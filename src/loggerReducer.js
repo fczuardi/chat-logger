@@ -3,7 +3,6 @@
 // A Redux-style action handler (a [reducer](http://redux.js.org/docs/basics/Reducers.html))
 // for a Telegram Logger based on [Telegram Bot API](https://core.telegram.org/bots/api) actions.
 
-import telegram from 'telegram-bot-api';
 import {
     CONNECT_TO_TELEGRAM,
     CONNECT_TO_AMQ,
@@ -26,12 +25,7 @@ export function loggerReducer(state = initialState, action) {
         case CONNECT_TO_TELEGRAM:
             connection[action.token] = {
                 token: action.token,
-                api: new telegram({
-                    token: action.token,
-                    updates: {
-                        enabled: true
-                    }
-                })
+                api: action.api
             };
             return {
                 ...state,
