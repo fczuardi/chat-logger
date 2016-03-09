@@ -10,6 +10,7 @@ export default {
     plugins: [
         multiEntry(),
         babel({
+            "babelrc": false,
             "presets": [
                 "es2015-rollup",
                 "stage-2"
