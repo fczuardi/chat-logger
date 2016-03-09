@@ -4,7 +4,6 @@
 // for a Telegram Logger based on [Telegram Bot API](https://core.telegram.org/bots/api) actions.
 
 import telegram from 'telegram-bot-api';
-import amqp from 'amqplib';
 import {
     CONNECT_TO_TELEGRAM,
     CONNECT_TO_AMQ,
