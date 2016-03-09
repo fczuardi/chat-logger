@@ -1,6 +1,6 @@
 {
   "name": "chat-logger",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A logger for Telegram messages",
   "main": "./dist/npm/index.js",
   "scripts": {
