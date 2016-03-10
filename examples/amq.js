@@ -1,9 +1,9 @@
 import util from 'util';
 import { createStore } from 'redux';
 import { loggerReducer } from '../src/loggerReducer';
-import { connectAndDispatch as connectToRabbit} from '../src/amqHelpers';
+import { connect as connectToRabbit} from '../src/amqHelpers';
 
-let url = process.env.AMQ_URL;
+let urls = process.env.AMQ_URL ? process.env.AMQ_URL.split(' ') : [''];
 let store = createStore(loggerReducer);
 store.subscribe(() => {
     console.log(
@@ -15,4 +15,6 @@ ${util.inspect(store.getState())}
     );
 });
 
-connectToRabbit(url, store);
+urls.forEach( (url) => {
+    let connectionPromise = connectToRabbit(url, store);
+});
