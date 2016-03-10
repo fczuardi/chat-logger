@@ -6,7 +6,8 @@ export async function connect(url, store){
         let api = await amqp.connect();
         let connection = {
             id: url,
-            api: api
+            api: api,
+            loggerId: null
         };
         store.dispatch({
             type: CONNECTED_TO_AMQ,

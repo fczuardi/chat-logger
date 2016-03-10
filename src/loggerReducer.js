@@ -20,7 +20,14 @@ const initialState = {
 export function loggerReducer(state = initialState, action) {
     let user = {},
         chat = {},
-        connection = {};
+        connection = {},
+        {
+            id,
+            api,
+            loggerId,
+            date,
+            text
+        } = action;
     console.log(`
 Action ${action.type}
 ======
@@ -28,10 +35,7 @@ Action ${action.type}
     switch (action.type) {
         case CONNECTED_TO_TELEGRAM:
         case CONNECTED_TO_AMQ:
-            connection[action.id] = {
-                id: action.id,
-                api: action.api
-            };
+            connection[action.id] = { id, api, loggerId };
             return {
                 ...state,
                 connections: Object.assign({}, state.connections, connection)
@@ -40,7 +44,7 @@ Action ${action.type}
             if (action.connectionId){
                 connection[action.connectionId] = {
                     ...state.connections[action.connectionId],
-                    userId: action.user.id
+                    loggerId: action.user.id
                 }
             }
             user[action.user.id] = {
@@ -53,16 +57,14 @@ Action ${action.type}
                 connections: Object.assign({}, state.connections, connection)
             };
         case ADD_MESSAGE:
-            let {id, date, text} = action,
-                chatId = action.chat.id,
+            let chatId = action.chat.id,
                 userId = action.from.id;
-            let loggerId = state.connections[action.connection.token].userId;
             user[userId] = action.from;
             chat[chatId] = action.chat;
             return {
                 ...state,
                 messages: [
-                    { id, chatId, date, text, loggerId },
+                    { id, date, text, loggerId, chatId, userId },
                     ...state.messages
                 ],
                 users: Object.assign({}, state.users, user),

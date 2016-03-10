@@ -1,5 +1,10 @@
-import util from 'util';
+// # RabbitMQ example
+
+import { inspect } from 'util';
 import { createStore } from 'redux';
+
+// import { loggerReducer } from 'chat-logger';
+// import { connect as connectToRabbit} from 'chat-logger';
 import { loggerReducer } from '../src/loggerReducer';
 import { connect as connectToRabbit} from '../src/amqHelpers';
 
@@ -10,7 +15,7 @@ store.subscribe(() => {
 `
 State
 =====
-${util.inspect(store.getState())}
+${inspect(store.getState())}
 `
     );
 });

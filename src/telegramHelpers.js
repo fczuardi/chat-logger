@@ -1,7 +1,8 @@
+import { inspect } from 'util';
 import telegram from 'telegram-bot-api';
-import { CONNECTED_TO_TELEGRAM, ADD_USER } from '../src/actionTypes';
+import { CONNECTED_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from '../src/actionTypes';
 
-function connect(token, store){
+export function connect(token, store){
     let api = new telegram({
         token: token,
         updates: {
@@ -10,7 +11,8 @@ function connect(token, store){
     });
     let connection = {
         id: token,
-        api: api
+        api: api,
+        loggerId: null
     };
     store.dispatch({
         type: CONNECTED_TO_TELEGRAM,
@@ -19,8 +21,9 @@ function connect(token, store){
     return connection;
 }
 
-async function addBotUser(store, connection){
+export async function addBotUser(token, store){
     try{
+        let connection = store.getState().connections[token];
         let user = await connection.api.getMe();
         store.dispatch({
             type: ADD_USER,
@@ -33,10 +36,35 @@ async function addBotUser(store, connection){
     }
 }
 
+export function addMessage(token, store, message){
+    let connection = store.getState().connections[token];
+    let chatMessage = {
+        id: message.message_id,
+        date: message.date,
+        text: message.text,
+        chat: message.chat,
+        from: message.from,
+        loggerId: connection.loggerId
+    };
+    console.log('addMessage', inspect(chatMessage));
+    store.dispatch({
+        type: ADD_MESSAGE,
+        ...chatMessage
+    });
+    return chatMessage;
+}
+
+export function startTelegramRelay(token, store){
+    let connection = store.getState().connections[token];
+    connection.api.on('message', (message) => {
+        addMessage(token, store, message);
+    });
+}
+
 export async function connectAndAddLoggerUser(token, store){
     let connection = connect(token, store);
     try{
-        return await addBotUser(store, connection);
+        return await addBotUser(token, store);
     }catch(e){
         console.warn(e);
     }
