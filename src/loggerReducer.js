@@ -5,7 +5,7 @@
 
 import {
     CONNECT_TO_TELEGRAM,
-    CONNECT_TO_AMQ,
+    CONNECTED_TO_AMQ,
     ADD_USER,
     ADD_MESSAGE
 } from './actionTypes';
@@ -31,9 +31,16 @@ export function loggerReducer(state = initialState, action) {
                 ...state,
                 connections: Object.assign({}, state.connections, connection)
             };
-        case CONNECT_TO_AMQ:
-            console.log('CONNECT_TO_AMQ', action);
-            return state;
+        case CONNECTED_TO_AMQ:
+            let url = action.url || 'default';
+            connection[url] = {
+                api: action.api,
+                url: url
+            };
+            return {
+                ...state,
+                connections: Object.assign({}, state.connections, connection)
+            };
         case ADD_USER:
             if (action.connection){
                 connection[action.connection.token] = {
