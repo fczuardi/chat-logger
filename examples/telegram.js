@@ -12,15 +12,16 @@
 // connection and dispatch an ADD_MESSAGE action to push the new message to the
 // messages list.
 
-
+import util from 'util';
 import { createStore } from 'redux';
 
-// Uncomment the 2 lines below and comment the other 2 to run this example using the npm package
-// import { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from 'chat-logger';
+// Uncomment the 3 lines below and comment the other 2 to run this example using the npm package
+// import { ADD_USER, ADD_MESSAGE } from 'chat-logger';
 // import { loggerReducer } from 'chat-logger';
-import { CONNECT_TO_TELEGRAM, ADD_USER, ADD_MESSAGE } from '../src/actionTypes';
+// import { connect as connectToTelegram} from 'chat-logger';
+import { ADD_MESSAGE } from '../src/actionTypes';
 import { loggerReducer } from '../src/loggerReducer';
-import telegram from 'telegram-bot-api';
+import { connectAndAddLoggerUser as connectToTelegram} from '../src/telegramHelpers';
 
 let tokens = process.env.TELEGRAM_KEY.split(' ');
 let store = createStore(loggerReducer);
@@ -29,34 +30,13 @@ store.subscribe(() => {
 `
 State
 =====
-${JSON.stringify(store.getState(), ' ', 2)}
+${util.inspect(store.getState())}
 `
     );
 });
 
 tokens.forEach( (token) => {
-    let api = new telegram({
-        token: token,
-        updates: {
-            enabled: true
-        }
-    });
-    store.dispatch({
-        type: CONNECT_TO_TELEGRAM,
-        token: token,
-        api: api
-    });
-    let connection = store.getState().connections[token];
-    connection.api.getMe().then( (user) => {
-        store.dispatch({
-            type: ADD_USER,
-            user: user,
-            connection: connection
-        });
-    })
-    .catch( (error) => {
-        console.error(error);
-    });
+    let botUserPromise = connectToTelegram(token, store);
 });
 
 let connections = store.getState().connections;

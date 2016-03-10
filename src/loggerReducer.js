@@ -4,7 +4,7 @@
 // for a Telegram Logger based on [Telegram Bot API](https://core.telegram.org/bots/api) actions.
 
 import {
-    CONNECT_TO_TELEGRAM,
+    CONNECTED_TO_TELEGRAM,
     CONNECTED_TO_AMQ,
     ADD_USER,
     ADD_MESSAGE
@@ -21,34 +21,32 @@ export function loggerReducer(state = initialState, action) {
     let user = {},
         chat = {},
         connection = {};
+    console.log(`
+Action ${action.type}
+======
+    `);
     switch (action.type) {
-        case CONNECT_TO_TELEGRAM:
-            connection[action.token] = {
-                token: action.token,
+        case CONNECTED_TO_TELEGRAM:
+        case CONNECTED_TO_AMQ:
+            connection[action.id] = {
+                id: action.id,
                 api: action.api
             };
             return {
                 ...state,
                 connections: Object.assign({}, state.connections, connection)
             };
-        case CONNECTED_TO_AMQ:
-            let url = action.url || 'default';
-            connection[url] = {
-                api: action.api,
-                url: url
-            };
-            return {
-                ...state,
-                connections: Object.assign({}, state.connections, connection)
-            };
         case ADD_USER:
-            if (action.connection){
-                connection[action.connection.token] = {
-                    ...state.connections[action.connection.token],
+            if (action.connectionId){
+                connection[action.connectionId] = {
+                    ...state.connections[action.connectionId],
                     userId: action.user.id
                 }
             }
-            user[action.user.id] = action.user;
+            user[action.user.id] = {
+                ...action.user,
+                'connectionId': action.connectionId
+            };
             return {
                 ...state,
                 users: Object.assign({}, state.users, user),

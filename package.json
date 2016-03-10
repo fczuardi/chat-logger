@@ -4,7 +4,7 @@
   "description": "A logger for Telegram messages",
   "main": "./dist/npm/index.js",
   "scripts": {
-    "example:telegram": "babel-node ./examples/stdout.js",
+    "example:telegram": "babel-node ./examples/telegram.js",
     "example:amq": "babel-node ./examples/amq.js",
     "start": "npm run example:telegram",
     "test": "ava --require 'babel-core/register'",
