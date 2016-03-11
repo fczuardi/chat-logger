@@ -4,8 +4,8 @@
 // for a Telegram Logger based on [Telegram Bot API](https://core.telegram.org/bots/api) actions.
 
 import {
-    CONNECTED_TO_TELEGRAM,
-    CONNECTED_TO_AMQ,
+    SETUP_TELEGRAM,
+    SETUP_AMQ,
     ADD_USER,
     ADD_MESSAGE
 } from './actionTypes';
@@ -33,8 +33,8 @@ Action ${action.type}
 ======
     `);
     switch (action.type) {
-        case CONNECTED_TO_TELEGRAM:
-        case CONNECTED_TO_AMQ:
+        case SETUP_TELEGRAM:
+        case SETUP_AMQ:
             connection[action.id] = { id, api, loggerId };
             return {
                 ...state,

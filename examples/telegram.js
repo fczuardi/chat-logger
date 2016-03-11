@@ -4,11 +4,13 @@ import { inspect } from 'util';
 import { createStore } from 'redux';
 
 // import { loggerReducer } from 'chat-logger';
-// import { connectAndAddLoggerUser as connectToTelegram, startTelegramRelay} from 'chat-logger';
+// import { connect as connectToTelegram } from 'chat-logger';
+// import { addBotUser, startTelegramRelay } from 'chat-logger';
 import { loggerReducer } from '../src/loggerReducer';
-import { connectAndAddLoggerUser as connectToTelegram, startTelegramRelay } from '../src/telegramHelpers';
+import { connect as connectToTelegram } from '../src/telegramHelpers';
+import { addBotUser, startTelegramRelay } from '../src/telegramHelpers';
 
-let tokens = process.env.TELEGRAM_KEY.split(' ');
+let tokens = process.env.TELEGRAM_KEY ? process.env.TELEGRAM_KEY.split(' ') : [''];
 let store = createStore(loggerReducer);
 store.subscribe(() => {
     console.log(
@@ -21,8 +23,9 @@ ${inspect(store.getState())}
 });
 
 tokens.forEach( (token) => {
-    let botUserPromise = connectToTelegram(token, store);
-    botUserPromise.then( () => {
-        startTelegramRelay(token, store);
-    }, console.warn);
+    connectToTelegram(token, store).then( (connection) => {
+        addBotUser(token, store).then( (user) => {
+            startTelegramRelay(token, store);
+        }, console.error);
+    }, console.error);
 });

@@ -21,5 +21,7 @@ ${inspect(store.getState())}
 });
 
 urls.forEach( (url) => {
-    let connectionPromise = connectToRabbit(url, store);
+    connectToRabbit(url, store).then( (connection) => {
+        console.log('Connected to ', connection.id);
+    }, console.warn);
 });
