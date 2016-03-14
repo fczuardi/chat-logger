@@ -3,7 +3,7 @@ import { SETUP_AMQ, ADD_MESSAGE } from '../src/actionTypes';
 
 export async function connect(url, store){
     try{
-        let api = await amqp.connect();
+        let api = await amqp.connect(url);
         let connection = {
             id: url,
             api: api,
