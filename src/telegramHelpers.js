@@ -23,13 +23,13 @@ export async function connect(token, store){
 }
 
 export async function addBotUser(token, store){
+    let connection = store.getState().connections[token];
     try{
-        let connection = store.getState().connections[token];
         let user = await connection.api.getMe();
         store.dispatch({
             type: ADD_USER,
             user: user,
-            connectionId: connection.id
+            connectionId: token
         });
         return user;
     } catch(err){

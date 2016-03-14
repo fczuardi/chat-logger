@@ -57,10 +57,11 @@ Action ${action.type}
                 connections: Object.assign({}, state.connections, connection)
             };
         case ADD_MESSAGE:
-            let chatId = action.chat.id,
-                userId = action.from.id;
-            user[userId] = action.from;
-            chat[chatId] = action.chat;
+            let chatId = action.chatId || action.chat.id,
+                userId = action.userId || action.from.id;
+            // @TODO separate the user and chat metadata update into different actions
+            user[userId] = action.from || {};
+            chat[chatId] = action.chat || {};
             return {
                 ...state,
                 messages: [
