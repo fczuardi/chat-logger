@@ -22,6 +22,8 @@ export async function connect(url, store){
 export function addMessage(url, store, buffer){
     let connection = store.getState().connections[url];
     let message = JSON.parse(buffer.content.toString());
+    // this example expects json encoded strings in the queue that are objects
+    // containing parameters message_id, date, text, chat_id, user_id, source
     if (!message.message_id || !message.text){
         return null;
     }
