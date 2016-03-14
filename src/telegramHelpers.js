@@ -54,7 +54,7 @@ export function addMessage(token, store, message){
     return chatMessage;
 }
 
-export function startTelegramRelay(token, store){
+export function startRelay(token, store){
     let connection = store.getState().connections[token];
     return connection.api.on('message', (message) => {
         addMessage(token, store, message);

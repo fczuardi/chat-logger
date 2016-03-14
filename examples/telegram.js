@@ -8,7 +8,7 @@ import { createStore } from 'redux';
 // import { addBotUser, startTelegramRelay } from 'chat-logger';
 import { loggerReducer } from '../src/loggerReducer';
 import { connect as connectToTelegram } from '../src/telegramHelpers';
-import { addBotUser, startTelegramRelay } from '../src/telegramHelpers';
+import { addBotUser, startRelay as startTelegramRelay } from '../src/telegramHelpers';
 
 let tokens = process.env.TELEGRAM_KEY ? process.env.TELEGRAM_KEY.split(' ') : [''];
 let store = createStore(loggerReducer);
