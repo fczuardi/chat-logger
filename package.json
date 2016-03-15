@@ -11,7 +11,7 @@
     "test": "ava --require 'babel-core/register'",
     "build:npm": "rollup --config",
     "prepublish": "npm run build:npm",
-    "ppp": "npm version patch && npm publish && git push",
+    "ppp": "npm version patch && npm publish && git push origin master && git push calamar master",
     "mpp": "npm version minor && npm publish && git push"
   },
   "repository": {
