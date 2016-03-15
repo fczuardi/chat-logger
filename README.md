@@ -38,9 +38,9 @@ To build the npm package under ```dist/npm```
 npm run build:npm
 ```
 
-To run the [standard output example][stdoutjs]:
+To run the [telegram example][telegram]:
 
-- edit the [examples/stdout.js][stdoutjs] file and comment/uncomment the lines
+- edit the [examples/telegram.js][stdoutjs] file and comment/uncomment the lines
 as instructed in the file.
 - make a copy of the [.env-sample][evsample] file with another name, edit it to
 include your telegram key(s)
@@ -63,6 +63,6 @@ npm start
 - [AGPL-3][license]
 
 [examples]: https://github.com/calamar-io/chat-logger/tree/master/examples
-[stdoutjs]: https://github.com/calamar-io/chat-logger/blob/master/examples/stdout.js
+[telegram]: https://github.com/calamar-io/chat-logger/blob/master/examples/telegram.js
 [evsample]: https://github.com/calamar-io/chat-logger/blob/master/.env-sample
 [license]: https://github.com/calamar-io/chat-logger/blob/master/LICENSE.txt
