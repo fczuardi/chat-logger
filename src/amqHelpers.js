@@ -50,7 +50,7 @@ export async function startRelay(url, queueName, store){
         channel.consume(queueName, (message) => {
             addMessage(url, store, message);
             channel.ack(message);
-        });
+        }, {noAck: false});
     }catch (err){
         throw err;
     }
