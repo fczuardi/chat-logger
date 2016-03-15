@@ -62,7 +62,7 @@ npm start
 
 - [AGPL-3][license]
 
-[examples]: https://github.com/convcomm/chat-logger/tree/master/examples
-[stdoutjs]: https://github.com/convcomm/chat-logger/blob/master/examples/stdout.js
+[examples]: https://github.com/calamar-io/chat-logger/tree/master/examples
+[stdoutjs]: https://github.com/calamar-io/chat-logger/blob/master/examples/stdout.js
 [evsample]: https://github.com/calamar-io/chat-logger/blob/master/.env-sample
-[license]: https://github.com/convcomm/chat-logger/blob/master/LICENSE.txt
+[license]: https://github.com/calamar-io/chat-logger/blob/master/LICENSE.txt
