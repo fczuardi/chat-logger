@@ -10,7 +10,9 @@ import { connect as connectToRabbit} from '../src/amqHelpers';
 import { startRelay as startRabbitRelay } from '../src/amqHelpers';
 
 let urls = process.env.AMQ_URL ? process.env.AMQ_URL.split(' ') : [''];
-let queueNames = process.env.AMQ_CONSUME_QUEUE ? process.env.AMQ_CONSUME_QUEUE.split(' ') : [''];
+let queueNames = process.env.AMQ_DEFAULT_EXCHANGE_CONSUME_QUEUE ?
+                    process.env.AMQ_DEFAULT_EXCHANGE_CONSUME_QUEUE.split(' ') :
+                    [''];
 let store = createStore(loggerReducer);
 store.subscribe(() => {
     console.log(
