@@ -1,6 +1,5 @@
 // # Telegram example
 
-import { inspect } from 'util';
 import { createStore } from 'redux';
 
 // import { loggerReducer, debugState } from 'chat-logger';

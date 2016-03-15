@@ -5,7 +5,8 @@
   "main": "./dist/npm/index.js",
   "scripts": {
     "example:telegram": "babel-node ./examples/telegram.js",
-    "example:amq": "babel-node ./examples/amq.js",
+    "example:amqplib": "babel-node ./examples/amq.js",
+    "example:wascally": "babel-node ./examples/wascally.js",
     "start": "npm run example:telegram",
     "test": "ava --require 'babel-core/register'",
     "build:npm": "rollup --config",
@@ -51,7 +52,8 @@
     "rollup": "^0.25.4",
     "rollup-plugin-babel": "^2.4.0",
     "rollup-plugin-multi-entry": "^1.1.0",
-    "telegram-bot-api": "^1.0.0"
+    "telegram-bot-api": "^1.0.0",
+    "wascally": "^0.2.10"
   },
   "dependencies": {}
 }

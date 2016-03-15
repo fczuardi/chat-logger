@@ -25,6 +25,7 @@ export function loggerReducer(state = initialState, action) {
             id,
             api,
             loggerId,
+            provider,
             date,
             text
         } = action;
@@ -65,7 +66,7 @@ Action ${action.type}
             return {
                 ...state,
                 messages: [
-                    { id, date, text, loggerId, chatId, userId },
+                    { id, date, text, loggerId, provider, chatId, userId },
                     ...state.messages
                 ],
                 users: Object.assign({}, state.users, user),
