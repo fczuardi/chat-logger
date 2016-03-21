@@ -1,3 +1,4 @@
+import { find } from 'lodash/fp/collection';
 import { parse as parseURL } from 'url';
 import { inspect } from 'util';
 //patch wascally this way to allow access to the Broker class:
@@ -56,7 +57,7 @@ export async function connect(url, fanoutExchanges, store){
 };
 
 export function addMessage(url, store, rabbitMessage){
-    let connection = store.getState().connections[url];
+    let connection = find({id: url}, store.getState().connections);
     let message = rabbitMessage.body;
     let chatMessage = {
         id: message.message_id,
@@ -75,7 +76,7 @@ export function addMessage(url, store, rabbitMessage){
 }
 
 export async function startRelay(url, store){
-    let connection = store.getState().connections[url];
+    let connection = find({id: url}, store.getState().connections);
     //to make the example simple, we don't expect any particular typeName
     connection.api.onUnhandled( (message) => {
         // console.log(inspect(message));

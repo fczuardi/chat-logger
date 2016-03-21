@@ -1,3 +1,4 @@
+import { find } from 'lodash/fp/collection';
 import amqp from 'amqplib';
 import { SETUP_AMQ, ADD_MESSAGE } from './actionTypes';
 
@@ -20,7 +21,7 @@ export async function connect(url, store){
 }
 
 export function addMessage(url, store, buffer){
-    let connection = store.getState().connections[url];
+    let connection = find({id: url}, store.getState().connections);
     let message = JSON.parse(buffer.content.toString());
     // this example expects json encoded strings in the queue that are objects
     // containing parameters message_id, date, text, chat_id, user_id, source
@@ -43,7 +44,7 @@ export function addMessage(url, store, buffer){
 }
 
 export async function startRelay(url, queueName, store){
-    let connection = store.getState().connections[url];
+    let connection = find({id: url}, store.getState().connections);
     try{
         let channel = await connection.api.createChannel();
         let queueExists = channel.checkQueue(queueName);
