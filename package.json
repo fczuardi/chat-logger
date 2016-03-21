@@ -4,12 +4,17 @@
   "description": "A logger for Telegram messages",
   "main": "./dist/npm/index.js",
   "scripts": {
+    "clean": "rm -rf ./dist",
+    "mkdir": "mkdir -p ./dist/www",
     "example:telegram": "babel-node ./examples/telegram.js",
     "example:amqplib": "babel-node ./examples/amq.js",
     "example:wascally": "babel-node ./examples/wascally.js",
     "start": "npm run example:telegram",
     "test": "ava --require 'babel-core/register'",
     "build:npm": "rollup --config",
+    "prebuild:html": "npm run mkdir",
+    "debug:html": "babel-node ./src/bin/page.js",
+    "build:html": "babel-node ./src/bin/page.js > ./dist/www/index.html",
     "prepublish": "npm run build:npm",
     "gitpush": "git push origin master && git push calamar master",
     "ppp": "npm version patch && npm publish && npm run gitpush",
@@ -37,7 +42,8 @@
     "presets": [
       "es2015",
       "stage-2",
-      "stage-3"
+      "stage-3",
+      "react"
     ]
   },
   "devDependencies": {
@@ -47,8 +53,12 @@
     "babel-core": "^6.7.0",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-es2015-rollup": "^1.1.1",
+    "babel-preset-react": "^6.5.0",
     "babel-preset-stage-2": "^6.5.0",
     "babel-preset-stage-3": "^6.5.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-redux": "^4.4.1",
     "redux": "^3.3.1",
     "rollup": "^0.25.4",
     "rollup-plugin-babel": "^2.4.0",
