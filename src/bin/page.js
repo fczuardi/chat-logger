@@ -1,9 +1,6 @@
-import { renderToString } from 'react-dom/server';
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { createElement, DOM } from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { loggerReducer } from '../loggerReducer';
-// import { html } from 'js-beautify';
+import { html } from 'js-beautify';
 import Page from '../templates/Page.jsx';
 import App from '../components/App';
 
@@ -15,21 +12,21 @@ let pageProps = {
     stylesheets: [
     ],
     scripts: [
-        './js/main.js'
+        './lib/js/babel-helpers.js',
+        './js/chat-logger-reducer.js',
     ]
 };
 
-let store = createStore(loggerReducer);
+let appHTML = html(renderToString(
+    createElement(App)
+));
 
-
-// let output = html(renderToString(
-let output = (renderToString(
-    createElement(Provider, {'store': store},
-        createElement(Page, pageProps,
-            createElement(App),
-            DOM.script()
-        )
+let baseHTML = html(renderToStaticMarkup(
+    createElement(Page, pageProps,
+        DOM.div({id: 'main-app'})
     )
 ));
+
+let output = baseHTML.replace(/(.*main-app[^>]*>)([^<]*)(<.*)/ig, `$1${appHTML}$3`);
 
 console.log(output);

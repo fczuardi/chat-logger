@@ -29,10 +29,6 @@ export function loggerReducer(state = initialState, action) {
             date,
             text
         } = action;
-    console.log(`
-Action ${action.type}
-======
-    `);
     switch (action.type) {
         case SETUP_TELEGRAM:
         case SETUP_AMQ:

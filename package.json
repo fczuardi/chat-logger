@@ -5,16 +5,22 @@
   "main": "./dist/npm/index.js",
   "scripts": {
     "clean": "rm -rf ./dist",
-    "mkdir": "mkdir -p ./dist/www",
+    "mkdir": "mkdir -p ./dist/www/lib/js",
     "example:telegram": "babel-node ./examples/telegram.js",
     "example:amqplib": "babel-node ./examples/amq.js",
     "example:wascally": "babel-node ./examples/wascally.js",
     "start": "npm run example:telegram",
     "test": "ava --require 'babel-core/register'",
-    "build:npm": "rollup --config",
+    "build:npm": "rollup --config ./config/rollup.config_npm.js",
+    "build:js:vendors:babelhelpers": "babel-external-helpers -t umd > ./dist/www/lib/js/babel-helpers.js",
+    "build:js:app:reducer": "rollup -n loggerReducer -i ./src/loggerReducer.js -o ./dist/www/js/chat-logger-reducer.js --config ./config/rollup.config_umd.js",
+    "build:js:vendors": "npm-run-all --parallel build:js:vendors:*",
+    "build:js:app": "npm-run-all --parallel build:js:app:*",
+    "build:js": "npm-run-all --parallel build:js:*",
     "prebuild:html": "npm run mkdir",
     "debug:html": "babel-node ./src/bin/page.js",
     "build:html": "babel-node ./src/bin/page.js > ./dist/www/index.html",
+    "watch:js": "watch \"npm run build:js:app\" src/",
     "prepublish": "npm run build:npm",
     "gitpush": "git push origin master && git push calamar master",
     "ppp": "npm version patch && npm publish && npm run gitpush",
@@ -56,6 +62,8 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-2": "^6.5.0",
     "babel-preset-stage-3": "^6.5.0",
+    "js-beautify": "^1.6.2",
+    "npm-run-all": "^1.6.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.1",
@@ -64,7 +72,8 @@
     "rollup-plugin-babel": "^2.4.0",
     "rollup-plugin-multi-entry": "^1.1.0",
     "telegram-bot-api": "^1.0.0",
-    "wascally": "^0.2.10"
+    "wascally": "^0.2.10",
+    "watch": "^0.17.1"
   },
   "dependencies": {}
 }
