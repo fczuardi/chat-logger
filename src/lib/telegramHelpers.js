@@ -46,7 +46,8 @@ export function addMessage(token, store, message){
         text: message.text,
         chat: message.chat,
         from: message.from,
-        loggerId: connection.loggerId
+        loggerId: connection.loggerId,
+        provider: 'telegram'
     };
     store.dispatch({
         type: ADD_MESSAGE,
