@@ -1,6 +1,6 @@
 import { inspect } from 'util';
 import telegram from 'telegram-bot-api';
-import { SETUP_TELEGRAM, ADD_USER, ADD_MESSAGE } from '../src/actionTypes';
+import { SETUP_TELEGRAM, ADD_USER, ADD_MESSAGE } from './actionTypes';
 
 export async function connect(token, store){
     let api = new telegram({

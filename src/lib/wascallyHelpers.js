@@ -3,7 +3,7 @@ import { inspect } from 'util';
 //patch wascally this way to allow access to the Broker class:
 // https://github.com/fczuardi/wascally/commit/d707ca283b1aefa67a2e7d1b5bd67612decf2a9c
 import { Broker as rabbitBroker } from 'wascally';
-import { SETUP_AMQ, ADD_MESSAGE } from '../src/actionTypes';
+import { SETUP_AMQ, ADD_MESSAGE } from './actionTypes';
 
 function connectionSettingsFromURL(url = 'amqp://guest:guest@localhost:5672'){
     let { auth, hostname, port, path } = parseURL(url),

@@ -1,5 +1,5 @@
 import amqp from 'amqplib';
-import { SETUP_AMQ, ADD_MESSAGE } from '../src/actionTypes';
+import { SETUP_AMQ, ADD_MESSAGE } from './actionTypes';
 
 export async function connect(url, store){
     try{
