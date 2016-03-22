@@ -112,6 +112,9 @@ the default choice of daemons with:
 npm start
 ```
 
+The web UI will be launched on localhost port 8081 and the rethinkDB admin UI on
+port 8080.
+
 ### Known issues
 - To use the telegram-rethinkDB example you will have to manually create a table named ```messages``` first.
 
