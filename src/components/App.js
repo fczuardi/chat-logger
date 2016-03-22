@@ -2,7 +2,7 @@ import { createElement } from 'react';
 import { DOM } from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { loggerReducer } from '../loggerReducer';
+import { loggerReducer } from '../lib/loggerReducer';
 import MessageListContainer from '../components/MessageListContainer';
 
 const store = createStore(loggerReducer);

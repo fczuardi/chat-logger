@@ -25,7 +25,6 @@ function setupMiddleWare(conn){
                 let chatId = action.chatId || action.chat.id,
                     userId = action.userId || action.from.id,
                     newMessage = { id, date, text, loggerId, provider, chatId, userId };
-                console.log('---newMessage', newMessage);
                 r.table('messages').insert(newMessage).run(conn, function(err, result) {
                     if (err) throw err;
                     console.log(JSON.stringify(result, null, 2));

@@ -1,68 +1,125 @@
 # chat-logger
-A logger for telegram chat messages.
+A system to log chat messages.
 
-## Usage
+## How it works
+
+The system is composed of 3 main parts/applications:
+
+1. Chat relays
+  - the bots/daemons that connects to chat networks (such as Telegram) or
+  message queues (such as rabbitMQ)
+2. Persistent storage
+  - the local storage/database that keeps all logged messages from the chats
+3. Web UI
+  - the web app that displays the logged messages with a nice interface
+
+To run an instance of the chat logger, you will have to setup your relays,
+choose a local storage and optionally launch the web UI. This documentation
+and the project itself is still under heavy development, which means that the
+guides below can break between updates.
+
+## Getting Started
+
+### Cloning this repository
+First step is to clone this repository. If you just want to use the latest
+version, you can clone it with a depth 1 to save bandwidth since the code
+history is not important. If you plan to contribute or want to have the full
+history, just clone the whole thing:
 
 ```shell
-npm install chat-logger redux
+# For regular users
+git clone --depth 1 https://github.com/calamar-io/chat-logger.git
+
+# For devs over HTTPS:
+git clone https://github.com/calamar-io/chat-logger.git
+
+# For devs over SSH:
+git clone git@github.com:calamar-io/chat-logger.git
 ```
 
-ES5
-```javascript
-var createStore = require('redux').createStore;
-var loggerReducer = require('chat-logger').loggerReducer;
+### Installing/Updating the development dependencies
 
-var store = createStore(loggerReducer);
-```
+Since this project is still under heavy development, I advise you to just
+install all the dev dependencies in orther to be able to run most of the build
+tasks (npm-scripts). To do that, you will need to have a machinne with a
+**recent version of Node.js installed**.
 
-ES2015
-```javascript
-import { createStore } from 'redux';
-import { loggerReducer } from 'chat-logger';
-
-let store = createStore(loggerReducer);
-```
-
-[More examples][examples].
-
-## Contribute
-
+Then, inside the root of the cloned repository folder do:
 ```shell
-git clone https://github.com/convcomm/chat-logger.git
-cd chat-logger
 npm install
 ```
 
-To build the npm package under ```dist/npm```
-```
-npm run build:npm
+### Dev tasks
+
+A list of all available tasks can be obtained by running
+```shell
+npm run
 ```
 
-To run the [telegram example][telegram]:
+The most important ones for now are the building tasks for generating the web UI
+and the starting tasks to launch the main daemons.
 
-- edit the [examples/telegram.js][stdoutjs] file and comment/uncomment the lines
-as instructed in the file.
-- make a copy of the [.env-sample][evsample] file with another name, edit it to
-include your telegram key(s)
+#### Building the web UI
 
+To generate the web UI run:
+```shell
+npm run build:webapp
 ```
+
+#### Configuring the servers
+
+To configure the different parts of the system, there are a set of expected
+environment variables you can set. To do that, make a copy of the [.env-sample][envsample]
+file, change the desired variables and run it:
+
+```shell
 cp .env-sample .env
-
-```
-
-- edit .env to include the telegram key(s) for your bot(s) and then…
-
-```
+nano .env
 source .env
+```
+
+#### Launching the servers
+
+The tasks with the prefix ```start:something``` are the ones that launch
+the individual parts of the system (Relays, Storages and UIs).
+
+**For example:** you
+can launch a telegram bot that listen to messages sent to it and outputs the
+state of a flux store to the screen (the code under [examples/telegram.js][telegram-example])
+with:
+
+```shell
+npm run start:telegram
+```
+
+(Type Ctrl+C to exit it)
+
+To launch multiple deamons and manage them you can install [pm2][pm2]
+and run the tasks with the prefix ```start:pm2:something```.
+
+##### The default setup
+
+Currently the default choice of daemons for relay, datastore and ui uses:
+
+- rethinkDB for the database
+- http-server for the webserver
+- telegram-bot-api for the chat relay
+
+If you have the first 2 and pm2 globally installed on your system, you can launch
+the default choice of daemons with:
+
+```shell
 npm start
 ```
 
+### Known issues
+- To use the telegram-rethinkDB example you will have to manually create a table named ```messages``` first.
 
 ## License
 
 - [AGPL-3][license]
 
-[examples]: https://github.com/calamar-io/chat-logger/tree/master/examples
-[telegram]: https://github.com/calamar-io/chat-logger/blob/master/examples/telegram.js
-[evsample]: https://github.com/calamar-io/chat-logger/blob/master/.env-sample
+[telegram-example]: https://github.com/calamar-io/chat-logger/blob/master/examples/telegram.js
+[envsample]: https://github.com/calamar-io/chat-logger/blob/master/.env-sample
+[pm2]: http://pm2.keymetrics.io/
 [license]: https://github.com/calamar-io/chat-logger/blob/master/LICENSE.txt
