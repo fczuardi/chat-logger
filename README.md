@@ -13,7 +13,7 @@ The system is composed of 3 main parts/applications:
 3. Web UI
   - the web app that displays the logged messages with a nice interface
 
-To run an instance of the chat logger, you will have to setup your relays,
+To run an instance of the chat logger, you will have to setup your chat relays,
 choose a local storage and optionally launch the web UI. This documentation
 and the project itself is still under heavy development, which means that the
 guides below can break between updates.
@@ -81,7 +81,7 @@ source .env
 #### Launching the servers
 
 The tasks with the prefix ```start:something``` are the ones that launch
-the individual parts of the system (Relays, Storages and UIs).
+the individual parts of the system (Chat Relays, Storages and UIs).
 
 **For example:** you
 can launch a telegram bot that listen to messages sent to it and outputs the
@@ -99,7 +99,7 @@ and run the tasks with the prefix ```start:pm2:something```.
 
 ##### The default setup
 
-Currently the default choice of daemons for relay, datastore and ui uses:
+Currently the default choice of daemons for chat relay, datastore and ui uses:
 
 - rethinkDB for the database
 - http-server for the webserver
