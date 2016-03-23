@@ -3,7 +3,7 @@
 // A Redux-style action handler (a [reducer](http://redux.js.org/docs/basics/Reducers.html))
 // for a Telegram Logger based on [Telegram Bot API](https://core.telegram.org/bots/api) actions.
 
-import { findIndex } from 'lodash/fp/array';
+import { findIndex } from 'lodash/fp';
 import {
     SETUP_TELEGRAM,
     SETUP_AMQ,

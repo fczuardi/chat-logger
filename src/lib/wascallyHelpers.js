@@ -1,4 +1,4 @@
-import { find } from 'lodash/fp/collection';
+import { find } from 'lodash/fp';
 import { parse as parseURL } from 'url';
 import { inspect } from 'util';
 //patch wascally this way to allow access to the Broker class:

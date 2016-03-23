@@ -13,5 +13,19 @@ export default {
                 "react"
             ]
         })
-    ]
+    ],
+    external: [
+        'redux',
+        'react',
+        'react-dom',
+        'react-redux',
+        'lodash/fp'
+    ],
+    globals: {
+        'redux': 'Redux',
+        'react': 'React',
+        'react-dom': 'ReactDOM',
+        'react-redux': 'ReactRedux',
+        'lodash/fp': 'LodashFP'
+    }
 };

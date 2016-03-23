@@ -1,4 +1,4 @@
-import { find } from 'lodash/fp/collection';
+import { find } from 'lodash/fp';
 import amqp from 'amqplib';
 import { SETUP_AMQ, ADD_MESSAGE } from './actionTypes';
 

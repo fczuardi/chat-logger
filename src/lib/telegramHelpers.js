@@ -1,5 +1,5 @@
 import { inspect } from 'util';
-import { find } from 'lodash/fp/collection';
+import { find } from 'lodash/fp';
 import telegram from 'telegram-bot-api';
 import { SETUP_TELEGRAM, ADD_USER, ADD_MESSAGE } from './actionTypes';
 

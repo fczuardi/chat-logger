@@ -3,6 +3,8 @@ import { createElement, DOM } from 'react';
 import { html } from 'js-beautify';
 import Page from '../templates/Page.jsx';
 import App from '../components/App';
+import r from 'rethinkdb';
+
 
 let title = 'Web UI demo';
 let pageProps = {
@@ -13,20 +15,57 @@ let pageProps = {
     ],
     scripts: [
         './lib/js/babel-helpers.js',
-        './js/chat-logger-reducer.js',
+        './lib/js/react.js',
+        './lib/js/react-dom.js',
+        './lib/js/react-redux.js',
+        './lib/js/redux.js',
+        './lib/js/lodash-custom.js',
+        './js/main.js'
     ]
 };
 
-let appHTML = html(renderToString(
-    createElement(App)
-));
+let initialState = {
+    messages: []
+};
 
-let baseHTML = html(renderToStaticMarkup(
-    createElement(Page, pageProps,
-        DOM.div({id: 'main-app'})
-    )
-));
+function printHTML() {
+    let appHTML = html(renderToString(
+        createElement(App, {initialState: initialState})
+    ));
 
-let output = baseHTML.replace(/(.*main-app[^>]*>)([^<]*)(<.*)/ig, `$1${appHTML}$3`);
+    let baseHTML = html(renderToStaticMarkup(
+        createElement(Page, pageProps,
+            DOM.div({id: 'main-app'}),
+            DOM.script({
+                dangerouslySetInnerHTML: {
+                    '__html': 'var initialState = ' +
+                                JSON.stringify(initialState)
+                }
+            })
+        )
+    ));
 
-console.log(output);
+    let matches = baseHTML.match(/([\s\S]*main-app[^>]*>)([^<]*)(<[\s\S]*)/m);
+    console.log(matches[1] + appHTML + matches[3]);
+}
+
+if (process.env.STORAGE === 'rethinkdb'){
+    let options = {
+        host: process.env.RETHINKDB_HOST || 'localhost',
+        port: process.env.RETHINKDB_PORT || '28015',
+        db: process.env.RETHINKDB_NAME || 'test'
+    }
+    r.connect(options).then( (conn) => {
+        r.table('messages').orderBy('date').run(conn, (err, cursor) => {
+            cursor.each( (err, row) => {
+                initialState.messages.push(row);
+            }, () => {
+                cursor.close();
+                conn.close();
+                printHTML();
+            });
+        })
+    });
+} else {
+    printHTML();
+}
