@@ -1,6 +1,11 @@
 # chat-logger
 A system to log chat messages.
 
+[![npm version](https://badge.fury.io/js/chat-logger.svg)](https://badge.fury.io/js/chat-logger)
+[![Dependency Status](https://david-dm.org/calamar-io/chat-logger.svg)](https://david-dm.org/calamar-io/chat-logger)
+[![devDependency Status](https://david-dm.org/calamar-io/chat-logger/dev-status.svg)](https://david-dm.org/calamar-io/chat-logger#info=devDependencies)
+
+
 ## How it works
 
 The system is composed of 3 main parts/applications:
