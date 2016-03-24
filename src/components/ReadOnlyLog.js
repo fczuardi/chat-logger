@@ -1,5 +1,3 @@
-import { createElement } from 'react';
-import { DOM } from 'react';
 import { createStore } from 'redux';
 import { loggerReducer } from '../lib/loggerReducer';
 import template from '../templates/ReadOnlyLog.jsx';
