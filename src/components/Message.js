@@ -4,7 +4,8 @@ import template from '../templates/Message.jsx';
 const Message = (p) => template(p);
 
 const messageType  = {
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
+  author: PropTypes.string
 };
 
 Message.propTypes = messageType;

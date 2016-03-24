@@ -1,4 +1,4 @@
-import { pageHTML } from '../www/html';
+import { pageHTML, DEFAULTSCRIPTS } from '../www/html';
 import r from 'rethinkdb';
 
 let title = 'Web UI demo';
@@ -6,19 +6,9 @@ let pageProps = {
     lang: 'en',
     charSet: 'utf-8',
     title: title,
-    stylesheets: [
-    ],
-    scripts: [
-        './lib/js/babel-helpers.js',
-        './lib/js/react.js',
-        './lib/js/react-dom.js',
-        './lib/js/react-redux.js',
-        './lib/js/redux.js',
-        './lib/js/lodash-custom.js',
-        './js/main.js'
-    ]
+    stylesheets: [],
+    scripts: DEFAULTSCRIPTS
 };
-
 let initialState = {
     messages: []
 };

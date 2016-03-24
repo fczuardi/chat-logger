@@ -4,7 +4,7 @@ import { html } from 'js-beautify';
 import Page from '../templates/Page.jsx';
 import App from '../components/App';
 
-export function pageHTML(pageProps, initialState) {
+function pageHTML(pageProps, initialState) {
     let appHTML = html(renderToString(
         createElement(App, {initialState: initialState})
     ));
@@ -24,3 +24,15 @@ export function pageHTML(pageProps, initialState) {
     let matches = baseHTML.match(/([\s\S]*main-app[^>]*>)([^<]*)(<[\s\S]*)/m);
     return matches[1] + appHTML + matches[3];
 }
+
+const DEFAULTSCRIPTS = [
+    './lib/js/babel-helpers.js',
+    './lib/js/react.js',
+    './lib/js/react-dom.js',
+    './lib/js/react-redux.js',
+    './lib/js/redux.js',
+    './lib/js/lodash-custom.js',
+    './js/main.js'
+];
+
+export { DEFAULTSCRIPTS, pageHTML };
