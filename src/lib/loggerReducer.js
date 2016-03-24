@@ -2,7 +2,6 @@
 //
 // A Redux-style action handler (a [reducer](http://redux.js.org/docs/basics/Reducers.html))
 // for a Telegram Logger based on [Telegram Bot API](https://core.telegram.org/bots/api) actions.
-
 import { findIndex } from 'lodash/fp';
 import {
     SETUP_TELEGRAM,
@@ -15,7 +14,8 @@ const initialState = {
     messages: [],
     connections: [],
     users: [],
-    chats: []
+    chats: [],
+    currentChat: {}
 }
 
 export function loggerReducer(state = initialState, action) {
@@ -88,8 +88,8 @@ export function loggerReducer(state = initialState, action) {
             return {
                 ...state,
                 messages: [
-                    { id, date, text, loggerId, provider, chatId, userId },
-                    ...state.messages
+                    ...state.messages,
+                    { id, date, text, loggerId, provider, chatId, userId }
                 ],
                 users: (action.from === undefined) ? state.users : [
                     ...state.users.slice(0, userIndex),

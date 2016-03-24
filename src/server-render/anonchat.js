@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 import { pageHTML, DEFAULTSCRIPTS } from '../www/html';
 import { messages } from '../../locales/pt/messages';
-import App from '../components/ReadOnlyLog';
+import App from '../components/InteractiveChat';
 
 let title = 'Anonymous User Chat';
 let pageProps = {
@@ -19,6 +19,7 @@ let anonUsername = `Guest_${anonUserId.substring(0, 8)}`;
 let botname = process.env.BOT_NAME || 'MyBot';
 let botId = process.env.BOT_ID || v4();
 
+let anonChatId = v4();
 
 let initialState = {
     messages: [
@@ -42,6 +43,13 @@ let initialState = {
             userId: anonUserId,
             username: anonUsername
         }
-    ]
+    ],
+    currentChat: {
+        id: anonChatId,
+        inputText: 'Foobar'
+    },
+    currentUser: {
+        id: anonUserId
+    }
 };
 console.log(pageHTML(pageProps, initialState, App));

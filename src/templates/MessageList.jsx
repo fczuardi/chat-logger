@@ -4,11 +4,13 @@ import Message from '../components/Message';
 export default function({ messages, users }){
     return (
         <ul>
-            {messages.map( ({ text, userId }, key) => {
+            {messages.map( ({ text, userId, id }, key) => {
                 let user = find({userId: userId}, users);
                 let author = user ? user.username : null;
                 return (
-                    <Message text={text} author={author} key={key} />
+                    <li key={id || key}>
+                        <Message text={text} author={author} />
+                    </li>
                 );
             })}
         </ul>
