@@ -1,5 +1,6 @@
-import { pageHTML, DEFAULTSCRIPTS } from '../www/html';
 import r from 'rethinkdb';
+import { pageHTML, DEFAULTSCRIPTS } from '../www/html';
+import App from '../components/ReadOnlyLog';
 
 let title = 'Web UI demo';
 let pageProps = {
@@ -27,10 +28,10 @@ if (process.env.STORAGE === 'rethinkdb'){
             }, () => {
                 cursor.close();
                 conn.close();
-                console.log(pageHTML(pageProps, initialState));
+                console.log(pageHTML(pageProps, initialState, App));
             });
         })
     });
 } else {
-    console.log(pageHTML(pageProps, initialState));
+    console.log(pageHTML(pageProps, initialState, App));
 }

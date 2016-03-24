@@ -1,7 +1,7 @@
 // main.js
 import { createElement } from 'react';
 import ReactDOM from 'react-dom';
-import App from '../components/App';
+import App from '../components/ReadOnlyLog';
 
 let initialState = window.initialState || { messages: [] };
 ReactDOM.render(

@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 import { pageHTML, DEFAULTSCRIPTS } from '../www/html';
 import { messages } from '../../locales/pt/messages';
+import App from '../components/ReadOnlyLog';
 
 let title = 'Anonymous User Chat';
 let pageProps = {
@@ -43,4 +44,4 @@ let initialState = {
         }
     ]
 };
-console.log(pageHTML(pageProps, initialState));
+console.log(pageHTML(pageProps, initialState, App));

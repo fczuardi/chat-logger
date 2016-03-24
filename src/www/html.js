@@ -2,9 +2,8 @@ import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { createElement, DOM } from 'react';
 import { html } from 'js-beautify';
 import Page from '../templates/Page.jsx';
-import App from '../components/App';
 
-function pageHTML(pageProps, initialState) {
+function pageHTML(pageProps, initialState, App) {
     let appHTML = html(renderToString(
         createElement(App, {initialState: initialState})
     ));
