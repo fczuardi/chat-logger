@@ -1,10 +1,5 @@
-import { renderToStaticMarkup, renderToString } from 'react-dom/server';
-import { createElement, DOM } from 'react';
-import { html } from 'js-beautify';
-import Page from '../templates/Page.jsx';
-import App from '../components/App';
+import { pageHTML } from '../www/html';
 import r from 'rethinkdb';
-
 
 let title = 'Web UI demo';
 let pageProps = {
@@ -28,26 +23,6 @@ let initialState = {
     messages: []
 };
 
-function printHTML() {
-    let appHTML = html(renderToString(
-        createElement(App, {initialState: initialState})
-    ));
-
-    let baseHTML = html(renderToStaticMarkup(
-        createElement(Page, pageProps,
-            DOM.div({id: 'main-app'}),
-            DOM.script({
-                dangerouslySetInnerHTML: {
-                    '__html': 'var initialState = ' +
-                                JSON.stringify(initialState)
-                }
-            })
-        )
-    ));
-
-    let matches = baseHTML.match(/([\s\S]*main-app[^>]*>)([^<]*)(<[\s\S]*)/m);
-    console.log(matches[1] + appHTML + matches[3]);
-}
 
 if (process.env.STORAGE === 'rethinkdb'){
     let options = {
@@ -62,10 +37,10 @@ if (process.env.STORAGE === 'rethinkdb'){
             }, () => {
                 cursor.close();
                 conn.close();
-                printHTML();
+                console.log(pageHTML(pageProps, initialState));
             });
         })
     });
 } else {
-    printHTML();
+    console.log(pageHTML(pageProps, initialState));
 }
