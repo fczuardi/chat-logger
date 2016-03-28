@@ -48,7 +48,7 @@ export async function connect(url, fanoutExchanges, store){
         };
         store.dispatch({
             type: SETUP_AMQ,
-            ...connection
+            payload: connection
         });
         return connection;
     }catch(err){
@@ -70,7 +70,7 @@ export function addMessage(url, store, rabbitMessage){
     };
     store.dispatch({
         type: ADD_MESSAGE,
-        ...chatMessage
+        payload: chatMessage
     });
     return chatMessage;
 }

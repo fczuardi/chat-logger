@@ -18,7 +18,7 @@ export async function connect(token, store){
     };
     store.dispatch({
         type: SETUP_TELEGRAM,
-        ...connection
+        payload: connection
     });
     return Promise.resolve(connection);
 }
@@ -29,8 +29,10 @@ export async function addBotUser(token, store){
         let user = await connection.api.getMe();
         store.dispatch({
             type: ADD_USER,
-            user: user,
-            connectionId: token
+            payload: {
+                user: user,
+                connectionId: token
+            }
         });
         return user;
     } catch(err){
@@ -51,7 +53,7 @@ export function addMessage(token, store, message){
     };
     store.dispatch({
         type: ADD_MESSAGE,
-        ...chatMessage
+        payload: chatMessage
     });
     return chatMessage;
 }

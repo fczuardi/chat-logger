@@ -20,24 +20,28 @@ const initialState = {
 }
 
 export function loggerReducer(state = initialState, action) {
-    let user = {},
-        chat = {},
-        connection = {},
+    let {
+        id,
+        chatId,
+        userId,
+        loggerId,
+        connectionId,
+        api,
+        provider,
+        date,
+        text,
+        user,
+        chat,
+        from
+    } = (action.payload || {});
+    let connection = {},
         connectionIndex,
         userIndex,
-        chatIndex,
-        {
-            id,
-            api,
-            loggerId,
-            provider,
-            date,
-            text
-        } = action;
+        chatIndex;
     switch (action.type) {
         case SETUP_TELEGRAM:
         case SETUP_AMQ:
-            connectionIndex = findIndex({id: action.id}, state.connections);
+            connectionIndex = findIndex({id: id}, state.connections);
             connection = { id, api, loggerId };
             return {
                 ...state,
@@ -48,17 +52,17 @@ export function loggerReducer(state = initialState, action) {
                 ]
             };
         case ADD_USER:
-            if (action.connectionId){
-                connectionIndex = findIndex({id: action.connectionId}, state.connections);
+            if (connectionId){
+                connectionIndex = findIndex({id: connectionId}, state.connections);
                 connection = {
                     ...state.connections[connectionIndex],
-                    loggerId: action.user.id
+                    loggerId: user.id
                 };
             }
-            userIndex = findIndex({id: action.user.id}, state.users);
+            userIndex = findIndex({id: user.id}, state.users);
             user = {
-                ...action.user,
-                'connectionId': action.connectionId
+                ...user,
+                'connectionId': connectionId
             };
             return {
                 ...state,
@@ -67,7 +71,7 @@ export function loggerReducer(state = initialState, action) {
                     user,
                     ...state.users.slice(userIndex + 1)
                 ],
-                connections: (action.connectionId === undefined) ? state.connections : [
+                connections: (connectionId === undefined) ? state.connections : [
                     ...state.connections.slice(0, connectionIndex),
                     connection,
                     ...state.connections.slice(connectionIndex + 1)
@@ -78,21 +82,20 @@ export function loggerReducer(state = initialState, action) {
                 ...state,
                 currentChat: {
                     ...state.currentChat,
-                    inputText: action.text
+                    inputText: text
                 }
             };
         case ADD_MESSAGE:
             // console.log('ACTION', action);
-            let chatId = action.chatId || action.chat.id,
-                userId = action.userId || action.from.id;
+            chatId = chatId || chat.id;
+            userId = userId || from.id;
             // @TODO separate the user and chat metadata update into different actions
-            if (action.from) {
+            if (from) {
                 userIndex = findIndex({id: userId}, state.users);
-                user = action.from;
+                user = from;
             }
-            if (action.chat) {
+            if (chat) {
                 chatIndex = findIndex({id: chatId}, state.chats);
-                chat = action.chat;
             }
             return {
                 ...state,
@@ -100,12 +103,12 @@ export function loggerReducer(state = initialState, action) {
                     ...state.messages,
                     { id, date, text, loggerId, provider, chatId, userId }
                 ],
-                users: (action.from === undefined) ? state.users : [
+                users: (from === undefined) ? state.users : [
                     ...state.users.slice(0, userIndex),
                     user,
                     ...state.users.slice(userIndex + 1)
                 ],
-                chats: (action.chat === undefined) ? state.chats : [
+                chats: (chat === undefined) ? state.chats : [
                     ...state.chats.slice(0, chatIndex),
                     chat,
                     ...state.chats.slice(chatIndex + 1)

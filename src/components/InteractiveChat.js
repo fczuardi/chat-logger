@@ -12,23 +12,29 @@ const InteractiveChat = ({ initialState }) => {
         let userId = ev.target.dataset.userId;
         store.dispatch({
             type: ADD_MESSAGE,
-            text: text,
-            chatId: chatId,
-            userId: userId,
-            date: new Date().getTime(),
-            provider: 'web'
+            payload: {
+                text: text,
+                chatId: chatId,
+                userId: userId,
+                date: new Date().getTime(),
+                provider: 'web'
+            }
         });
         //@TODO replace this with a middleware?
         store.dispatch({
             type: CHANGE_INPUT_MESSAGE,
-            text: ''
+            payload: {
+                text: ''
+            }
         });
     }
     let onChange = (ev) => {
         ev.preventDefault();
         store.dispatch({
             type: CHANGE_INPUT_MESSAGE,
-            text: ev.target.value
+            payload: {
+                text: ev.target.value
+            }
         });
     }
 
