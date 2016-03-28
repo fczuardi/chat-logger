@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import MessageInput from '../components/MessageInput';
+import MessageInput from '../MessageInput';
 
 const mapStateToProps = (state) => ({
     text: state.currentChat.inputText,
