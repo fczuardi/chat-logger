@@ -17,14 +17,24 @@ let options = {
 
 function setupMiddleWare(conn){
     return store => next => action => {
-        let { id, date, text, loggerId, provider} = action,
-            result = next(action);
+        let {
+            id,
+            chatId,
+            userId,
+            loggerId,
+            date,
+            text,
+            provider,
+            chat,
+            from
+        } = action.payload;
+        let result = next(action);
 
         switch(action.type){
             case ADD_MESSAGE:
-                let chatId = action.chatId || action.chat.id,
-                    userId = action.userId || action.from.id,
-                    newMessage = { id, date, text, loggerId, provider, chatId, userId };
+                chatId = chatId || chat.id;
+                userId = userId || from.id;
+                let newMessage = { id, date, text, loggerId, provider, chatId, userId };
                 r.table('messages').insert(newMessage).run(conn, function(err, result) {
                     if (err) throw err;
                     console.log(JSON.stringify(result, null, 2));
