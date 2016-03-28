@@ -4,7 +4,7 @@ import { html } from 'js-beautify';
 import Page from '../templates/Page.jsx';
 
 function pageHTML(pageProps, initialState, App) {
-    let appHTML = html(renderToString(
+    let appHTML = (renderToString(
         createElement(App, {initialState: initialState})
     ));
 
