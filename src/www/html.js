@@ -26,10 +26,10 @@ function pageHTML(pageProps, initialState, App) {
 
 const DEFAULTSCRIPTS = [
     './lib/js/babel-helpers.js',
+    './lib/js/redux.js',
     './lib/js/react.js',
     './lib/js/react-dom.js',
     './lib/js/react-redux.js',
-    './lib/js/redux.js',
     './lib/js/lodash-custom.js',
     './js/main.js'
 ];

@@ -21,17 +21,23 @@ let botId = process.env.BOT_ID || v4();
 
 let anonChatId = v4();
 
+let date = new Date().getTime();
+
 let initialState = {
     messages: [
         {
-            text: messages.chat.channel.empty
-        },
-        {
-            text: messages.chat.channel.enter(botname)
+            text: messages.chat.channel.enter(botname),
+            chatId: anonChatId,
+            userId: null,
+            date: date + 1,
+            provider: 'web'
         },
         {
             text: messages.chat.bot.welcome(anonUsername),
-            userId: botId
+            chatId: anonChatId,
+            userId: botId,
+            date: date + 2,
+            provider: 'web'
         }
     ],
     users: [
@@ -45,11 +51,11 @@ let initialState = {
         }
     ],
     currentChat: {
-        id: anonChatId,
-        inputText: 'Foobar'
+        id: anonChatId
     },
     currentUser: {
         id: anonUserId
     }
 };
+
 console.log(pageHTML(pageProps, initialState, App));

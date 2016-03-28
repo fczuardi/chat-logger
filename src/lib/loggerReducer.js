@@ -7,8 +7,9 @@ import {
     SETUP_TELEGRAM,
     SETUP_AMQ,
     ADD_USER,
-    ADD_MESSAGE
-} from './actionTypes';
+    ADD_MESSAGE,
+    CHANGE_INPUT_MESSAGE
+    } from './actionTypes';
 
 const initialState = {
     messages: [],
@@ -33,7 +34,6 @@ export function loggerReducer(state = initialState, action) {
             date,
             text
         } = action;
-    // console.log('ACTION', action.type);
     switch (action.type) {
         case SETUP_TELEGRAM:
         case SETUP_AMQ:
@@ -73,7 +73,16 @@ export function loggerReducer(state = initialState, action) {
                     ...state.connections.slice(connectionIndex + 1)
                 ]
             };
+        case CHANGE_INPUT_MESSAGE:
+            return {
+                ...state,
+                currentChat: {
+                    ...state.currentChat,
+                    inputText: action.text
+                }
+            };
         case ADD_MESSAGE:
+            // console.log('ACTION', action);
             let chatId = action.chatId || action.chat.id,
                 userId = action.userId || action.from.id;
             // @TODO separate the user and chat metadata update into different actions
