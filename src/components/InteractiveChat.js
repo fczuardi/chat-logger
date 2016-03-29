@@ -21,12 +21,16 @@ const InteractiveChat = ({ initialState, middlewares, connection }) => {
         r.table('messages').filter(
             r.row('chatId').eq(chatId)
         ).changes().run(connection, function(err, cursor) {
-            if (err) throw err;
+            if (err) {
+                console.warn(err);
+                return null;
+            }
             cursor.each(function(err, row) {
                 if (err) {
                     console.warn(err);
+                    return null;
                 }
-                console.log(JSON.stringify(row.new_val, null, 2));
+                // console.log(JSON.stringify(row.new_val, null, 2));
                 if (
                     row.new_val !== undefined &&
                     findIndex({id: row.new_val.id}, store.getState().messages) === -1
