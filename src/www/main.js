@@ -1,8 +1,9 @@
 // main.js
 import { createElement } from 'react';
 import ReactDOM from 'react-dom';
-import App from '../components/InteractiveChat';
 import { rethinkdb as r, connect } from 'rethinkdb-websocket-client';
+import { ADD_MESSAGE } from '../lib/actionTypes';
+import App from '../components/InteractiveChat';
 
 //@TODO configure rollup to use env vars instead of hardcoding those values
 var options = {
@@ -15,13 +16,10 @@ var options = {
   simulatedLatencyMs: 100, // wait 100ms before sending each message (optional)
 };
 
+var dbConnection;
+
 connect(options).then(function(conn) {
-  var query = r.table('messages');
-  query.run(conn, function(err, cursor) {
-    cursor.toArray(function(err, results) {
-      console.log(results);
-    });
-  });
+    dbConnection = conn;
 });
 
 
@@ -33,6 +31,27 @@ const logActions = store => next => action => {
 }
 
 const webSocketSendMessages = store => next => action => {
+    if (dbConnection !== undefined && action.type === ADD_MESSAGE){
+        console.log('update db!', action.payload);
+        let {
+            id,
+            chatId,
+            userId,
+            loggerId,
+            date,
+            text,
+            provider,
+            chat,
+            from
+        } = action.payload;
+        let newMessage = { id, date, text, loggerId, provider, chatId, userId };
+        var query = r.table('messages').insert(newMessage);
+        query.run(dbConnection, function(err, result) {
+            if (err) throw err;
+            console.log(JSON.stringify(result, null, 2));
+        });
+
+    }
     return next(action);
 }
 
@@ -40,7 +59,8 @@ ReactDOM.render(
     createElement(App, {
         initialState: initialState,
         middlewares: [
-            logActions
+            logActions,
+            webSocketSendMessages
         ]
     }),
     document.getElementById('main-app')
