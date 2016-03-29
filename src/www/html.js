@@ -31,6 +31,8 @@ const DEFAULTSCRIPTS = [
     './lib/js/react-dom.js',
     './lib/js/react-redux.js',
     './lib/js/lodash-custom.js',
+    './lib/js/crypto.js',
+    './lib/js/uuid.js',
     './lib/js/rethinkdb-websocket-client.js',
     './js/main.js'
 ];

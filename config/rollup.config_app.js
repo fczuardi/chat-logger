@@ -20,6 +20,7 @@ export default {
         'react-dom',
         'react-redux',
         'lodash/fp',
+        'uuid',
         'rethinkdb-websocket-client'
     ],
     globals: {
@@ -28,6 +29,7 @@ export default {
         'react-dom': 'ReactDOM',
         'react-redux': 'ReactRedux',
         'lodash/fp': 'LodashFP',
+        'uuid': 'uuid',
         'rethinkdb-websocket-client': 'RethinkdbWebsocketClient'
     }
 };

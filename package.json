@@ -34,6 +34,8 @@
     "build:js:vendors:react-redux": "cp ./node_modules/react-redux/dist/react-redux.js ./dist/www/lib/js/.",
     "build:js:vendors:redux": "cp ./node_modules/redux/dist/redux.js ./dist/www/lib/js/.",
     "build:js:vendors:lodash-fp": "rollup -n LodashFP -i ./src/vendors/lodash.js -o ./dist/www/lib/js/lodash-custom.js --config config/rollup_config_vendors.js",
+    "build:js:vendors:crypto": "browserify -s Crypto -r crypto -o ./dist/www/lib/js/crypto.js",
+    "build:js:vendors:uuid": "rollup -n uuid -i ./src/vendors/uuid.js -o ./dist/www/lib/js/uuid.js --config config/rollup_config_vendors.js",
     "_failed_build:js:vendors:rethinkdb-websocket-client": "rollup -n RethinkdbWebsocketClient -i ./src/vendors/rethinkdb.js -o ./dist/www/lib/js/rethinkdb-websocket-client.js --config config/rollup_config_vendors.js",
     "build:js:vendors:rethinkdb-websocket-client": "browserify -s RethinkdbWebsocketClient -r rethinkdb-websocket-client -o ./dist/www/lib/js/rethinkdb-websocket-client.js",
     "build:js:vendors": "npm-run-all --parallel build:js:vendors:*",

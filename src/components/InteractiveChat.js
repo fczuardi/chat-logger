@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import { createStore, applyMiddleware  } from 'redux';
 import { loggerReducer } from '../lib/loggerReducer';
 import { ADD_MESSAGE, CHANGE_INPUT_MESSAGE } from '../lib/actionTypes';
@@ -21,6 +22,8 @@ const InteractiveChat = ({ initialState, middlewares }) => {
                 text: text,
                 chatId: chatId,
                 userId: userId,
+                loggerId: null,
+                id: v4(),
                 date: new Date().getTime(),
                 provider: 'web'
             }

@@ -10,8 +10,17 @@ export default {
                 'lodash/fp': [
                     'find',
                     'findIndex'
+                ],
+                'uuid': [
+                    'v4'
                 ]
             }
         })
-    ]
+    ],
+    external: [
+        'crypto'
+    ],
+    globals: {
+        'crypto': 'Crypto'
+    }
 }
