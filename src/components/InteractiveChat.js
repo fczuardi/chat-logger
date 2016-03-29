@@ -1,10 +1,15 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware  } from 'redux';
 import { loggerReducer } from '../lib/loggerReducer';
 import { ADD_MESSAGE, CHANGE_INPUT_MESSAGE } from '../lib/actionTypes';
 import template from '../templates/InteractiveChat.jsx';
 
-const InteractiveChat = ({ initialState }) => {
-    const store = createStore(loggerReducer, initialState);
+const InteractiveChat = ({ initialState, middlewares }) => {
+    middlewares = middlewares || [];
+    const store = createStore(
+        loggerReducer,
+        initialState,
+        applyMiddleware(...middlewares)
+    );
     let onSend = (ev) => {
         ev.preventDefault();
         let text = ev.target.dataset.text;

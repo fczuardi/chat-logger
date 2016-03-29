@@ -19,13 +19,15 @@ export default {
         'react',
         'react-dom',
         'react-redux',
-        'lodash/fp'
+        'lodash/fp',
+        'rethinkdb-websocket-client'
     ],
     globals: {
         'redux': 'Redux',
         'react': 'React',
         'react-dom': 'ReactDOM',
         'react-redux': 'ReactRedux',
-        'lodash/fp': 'LodashFP'
+        'lodash/fp': 'LodashFP',
+        'rethinkdb-websocket-client': 'RethinkdbWebsocketClient'
     }
 };
