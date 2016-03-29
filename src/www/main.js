@@ -27,7 +27,8 @@ connect(options).then(function(conn) {
             middlewares: [
                 logActionsMiddleware,
                 webSocketSendMessages
-            ]
+            ],
+            connection: conn
         }),
         document.getElementById('main-app')
     );

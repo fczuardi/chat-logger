@@ -20,6 +20,7 @@ let botname = process.env.BOT_NAME || 'MyBot';
 let botId = process.env.BOT_ID || v4();
 
 let anonChatId = v4();
+let connectionId = v4();
 
 let date = new Date().getTime();
 
@@ -50,6 +51,7 @@ let initialState = {
             username: anonUsername
         }
     ],
+    connections: [],
     currentChat: {
         id: anonChatId
     },

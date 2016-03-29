@@ -123,6 +123,31 @@ port 8080.
 ### Known issues
 - To use the telegram-rethinkDB example you will have to manually create a table named ```messages``` first.
 
+### Manually querying the RethinkDB data explorer
+
+open localhost:8080/#dataexplorer
+
+#### Gett all messages
+
+```
+r.db('chat_logger').table('messages').orderBy(r.desc('date'))
+```
+
+#### Add messages to a chat session
+
+```
+r.db('chat_logger').table('messages').insert([{
+  text: "Hello World 7",
+  chatId: "414aca94-349a-40fa-a388-1034fa2426bd",
+  userId: "a0e3eb3b-c478-434d-93f2-c021361f3cd7",
+  id: new Date().getTime(),
+  date: new Date().getTime(),
+  loggerId: null,
+  provider: null
+}], {returnChanges: true})
+```
+
+
 ## License
 
 - [AGPL-3][license]

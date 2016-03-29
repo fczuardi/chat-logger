@@ -86,9 +86,13 @@ export function loggerReducer(state = initialState, action) {
                 }
             };
         case ADD_MESSAGE:
-            // console.log('ACTION', action);
-            chatId = chatId || chat.id;
-            userId = userId || from.id;
+            // console.log('ACTION', action, chat, chatId, from, userId);
+            if (chat && chat.id){
+                chatId = chat.id;
+            }
+            if (from && from.id){
+                userId = from.id;
+            }
             // @TODO separate the user and chat metadata update into different actions
             if (from) {
                 userIndex = findIndex({id: userId}, state.users);
