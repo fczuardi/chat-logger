@@ -27,6 +27,7 @@
     "build:npm:helpers:amq": "rollup -i ./src/lib/amqHelpers.js -o ./dist/npm/amqHelpers.js --config ./config/rollup.config_cjs.js",
     "build:npm:helpers:wascally": "rollup -i ./src/lib/wascallyHelpers.js -o ./dist/npm/wascallyHelpers.js --config ./config/rollup.config_cjs.js",
     "build:npm:helpers:telegram": "rollup -i ./src/lib/telegramHelpers.js -o ./dist/npm/telegramHelpers.js --config ./config/rollup.config_cjs.js",
+    "build:npm:helpers:rethinkdb": "rollup -i ./src/lib/rethinkdbHelpers.js -o ./dist/npm/rethinkdbHelpers.js --config ./config/rollup.config_cjs.js",
     "build:npm": "npm-run-all --parallel build:npm:**",
     "build:js:vendors:babelhelpers": "babel-external-helpers -t umd > ./dist/www/lib/js/babel-helpers.js",
     "build:js:vendors:react": "cp ./node_modules/react/dist/react.js ./dist/www/lib/js/.",

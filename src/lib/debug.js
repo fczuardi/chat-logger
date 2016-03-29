@@ -9,3 +9,10 @@ ${inspect(store.getState())}
 `
     );
 };
+
+const logActionsMiddleware = store => next => action => {
+    console.log('action', action);
+    return next(action);
+}
+
+export { logActionsMiddleware };
