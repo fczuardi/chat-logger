@@ -101,6 +101,11 @@ export function loggerReducer(state = initialState, action) {
             if (chat) {
                 chatIndex = findIndex({id: chatId}, state.chats);
             }
+            //@TODO this date conversion maybe belong to a middleware
+            if (provider === 'telegram'){
+                //telegram api uses seconds after epoch instead of miliseconds
+                date = date * 1000;
+            }
             return {
                 ...state,
                 messages: [

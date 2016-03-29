@@ -29,13 +29,19 @@ function setupMiddleWare(conn){
             from
         } = action.payload;
         let result = next(action);
-
         switch(action.type){
             case ADD_MESSAGE:
+                //@TODO this date conversion maybe belong to a middleware
+                if (provider === 'telegram'){
+                    //telegram api uses seconds after epoch instead of miliseconds
+                    date = date * 1000;
+                }
                 chatId = chatId || chat.id;
                 userId = userId || from.id;
                 let newMessage = { id, date, text, loggerId, provider, chatId, userId };
-                r.table('messages').insert(newMessage).run(conn, function(err, result) {
+                r.table('messages').insert(
+                    newMessage, {returnChanges: true}
+                ).run(conn, function(err, result) {
                     if (err) throw err;
                     console.log(JSON.stringify(result, null, 2));
                 });
