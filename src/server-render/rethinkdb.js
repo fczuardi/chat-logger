@@ -1,7 +1,7 @@
 import r from 'rethinkdb';
 import { pageHTML, DEFAULTSCRIPTS } from '../www/html';
 import App from '../components/ReadOnlyLog';
-import {TABLES} from '../src/lib/rethinkdbHelpers';
+import {TABLES} from '../lib/rethinkdbHelpers';
 
 
 let title = 'Web UI demo';

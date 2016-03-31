@@ -5,7 +5,7 @@ import { createStore, applyMiddleware  } from 'redux';
 import { loggerReducer } from '../lib/loggerReducer';
 import { ADD_MESSAGE, CHANGE_INPUT_MESSAGE } from '../lib/actionTypes';
 import template from '../templates/InteractiveChat.jsx';
-import {TABLES} from '../src/lib/rethinkdbHelpers';
+import {TABLES} from '../lib/rethinkdbHelpers';
 
 const InteractiveChat = ({ initialState, middlewares, connection }) => {
     middlewares = middlewares || [];
