@@ -18,7 +18,7 @@ const InteractiveChat = ({ initialState, middlewares, connection }) => {
 
     if (connection) {
         //listen to table updates from the server
-        let chatId = initialState.currentChat.id;
+        let chatId = initialState.currentSession.chatId;
         r.table(TABLES.messages).filter(
             r.row('chatId').eq(chatId)
         ).changes().run(connection, function(err, cursor) {
@@ -80,7 +80,8 @@ const InteractiveChat = ({ initialState, middlewares, connection }) => {
         });
     }
 
+    let chatId = initialState.currentSession.chatId;
 
-    return template({ store, onSend, onChange });
+    return template({ store, onSend, onChange, chatId });
 };
 export default InteractiveChat;

@@ -56,6 +56,7 @@ export function setupRethinkDBMiddleware(dbConnection){
                 chat,
                 from
             } = action.payload;
+            userId = userId || null;
             let newMessage = { id, date, text, loggerId, provider, chatId, userId };
             var query = r.table(TABLES.messages).insert(newMessage);
             query.run(dbConnection, function(err, result) {

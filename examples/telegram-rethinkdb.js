@@ -39,6 +39,11 @@ function setupMiddleWare(conn){
                 }
                 chatId = chatId || chat.id;
                 userId = userId || from.id;
+                //convert numeric ids to string
+                id += '';
+                chatId += '';
+                userId += '';
+                loggerId += '';
                 let newMessage = { id, date, text, loggerId, provider, chatId, userId };
                 r.table(TABLES.messages).insert(
                     newMessage, {returnChanges: true}

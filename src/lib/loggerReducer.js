@@ -16,7 +16,7 @@ const initialState = {
     connections: [],
     users: [],
     chats: [],
-    currentChat: {}
+    currentSession: {}
 }
 
 export function loggerReducer(state = initialState, action) {
@@ -80,19 +80,24 @@ export function loggerReducer(state = initialState, action) {
         case CHANGE_INPUT_MESSAGE:
             return {
                 ...state,
-                currentChat: {
-                    ...state.currentChat,
+                currentSession: {
+                    ...state.currentSession,
                     inputText: text
                 }
             };
         case ADD_MESSAGE:
-            // console.log('ACTION', action, chat, chatId, from, userId);
+            console.log('ACTION', action, chat, chatId, from, userId);
             if (chat && chat.id){
                 chatId = chat.id;
             }
             if (from && from.id){
                 userId = from.id;
             }
+            //convert numeric ids to string
+            id += '';
+            chatId += '';
+            userId += '';
+            loggerId += '';
             // @TODO separate the user and chat metadata update into different actions
             if (from) {
                 userIndex = findIndex({id: userId}, state.users);

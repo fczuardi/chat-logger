@@ -34,7 +34,7 @@ const DEFAULTSCRIPTS = [
     './lib/js/crypto.js',
     './lib/js/uuid.js',
     './lib/js/rethinkdb-websocket-client.js',
-    './js/main.js'
+    './lib/js/query-string.js'
 ];
 
 export { DEFAULTSCRIPTS, pageHTML };

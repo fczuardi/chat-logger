@@ -2,9 +2,9 @@ import { connect } from 'react-redux'
 import MessageInput from '../MessageInput';
 
 const mapStateToProps = (state) => ({
-    text: state.currentChat.inputText,
-    chatId: state.currentChat.id,
-    userId: state.currentUser.id
+    text: state.currentSession.inputText,
+    chatId: state.currentSession.chatId,
+    userId: state.currentSession.userId
 });
 
 const MessageInputContainer = connect(mapStateToProps, null)(MessageInput);

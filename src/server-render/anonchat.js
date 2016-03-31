@@ -11,7 +11,10 @@ let pageProps = {
     stylesheets: [
         './css/chat.css'
     ],
-    scripts: DEFAULTSCRIPTS
+    scripts: [
+        ...DEFAULTSCRIPTS,
+        './js/main.js'
+    ]
 };
 let anonUserId = v4();
 let anonUsername = `Guest_${anonUserId.substring(0, 8)}`;
@@ -52,11 +55,10 @@ let initialState = {
         }
     ],
     connections: [],
-    currentChat: {
-        id: anonChatId
-    },
-    currentUser: {
-        id: anonUserId
+    currentSession: {
+        inputText: '',
+        chatId: anonChatId,
+        userId: anonUserId
     }
 };
 
