@@ -5,6 +5,7 @@ import { createStore, applyMiddleware  } from 'redux';
 import { loggerReducer } from '../lib/loggerReducer';
 import { ADD_MESSAGE, CHANGE_INPUT_MESSAGE } from '../lib/actionTypes';
 import template from '../templates/InteractiveChat.jsx';
+import {TABLES} from '../src/lib/rethinkdbHelpers';
 
 const InteractiveChat = ({ initialState, middlewares, connection }) => {
     middlewares = middlewares || [];
@@ -18,7 +19,7 @@ const InteractiveChat = ({ initialState, middlewares, connection }) => {
     if (connection) {
         //listen to table updates from the server
         let chatId = initialState.currentChat.id;
-        r.table('messages').filter(
+        r.table(TABLES.messages).filter(
             r.row('chatId').eq(chatId)
         ).changes().run(connection, function(err, cursor) {
             if (err) {

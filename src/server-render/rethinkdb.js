@@ -1,6 +1,8 @@
 import r from 'rethinkdb';
 import { pageHTML, DEFAULTSCRIPTS } from '../www/html';
 import App from '../components/ReadOnlyLog';
+import {TABLES} from '../src/lib/rethinkdbHelpers';
+
 
 let title = 'Web UI demo';
 let pageProps = {
@@ -22,7 +24,7 @@ if (process.env.STORAGE === 'rethinkdb'){
         db: process.env.RETHINKDB_NAME || 'test'
     }
     r.connect(options).then( (conn) => {
-        r.table('messages').orderBy('date').run(conn, (err, cursor) => {
+        r.table(TABLES.messages).orderBy('date').run(conn, (err, cursor) => {
             cursor.each( (err, row) => {
                 initialState.messages.push(row);
             }, () => {

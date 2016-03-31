@@ -7,6 +7,7 @@ import { debugState } from '../src/lib/debug';
 import { connect as connectToTelegram } from '../src/lib/telegramHelpers';
 import { addBotUser, startRelay as startTelegramRelay } from '../src/lib/telegramHelpers';
 import r from 'rethinkdb';
+import {TABLES} from '../src/lib/rethinkdbHelpers';
 
 let tokens = process.env.TELEGRAM_KEY ? process.env.TELEGRAM_KEY.split(' ') : [''];
 let options = {
@@ -39,7 +40,7 @@ function setupMiddleWare(conn){
                 chatId = chatId || chat.id;
                 userId = userId || from.id;
                 let newMessage = { id, date, text, loggerId, provider, chatId, userId };
-                r.table('messages').insert(
+                r.table(TABLES.messages).insert(
                     newMessage, {returnChanges: true}
                 ).run(conn, function(err, result) {
                     if (err) throw err;

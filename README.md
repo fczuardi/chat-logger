@@ -110,18 +110,21 @@ Currently the default choice of daemons for chat relay, datastore and ui uses:
 - http-server for the webserver
 - telegram-bot-api for the chat relay
 
-If you have the first 2 and pm2 globally installed on your system, you can launch
+If you have rethinkdb installed, you can create the database and required tables with:
+
+```shell
+npm run reset:db
+```
+
+If you have pm2 globally installed on your system, you can launch
 the default choice of daemons with:
 
 ```shell
 npm start
 ```
 
-The web UI will be launched on localhost port 8081 and the rethinkDB admin UI on
-port 8080.
-
-### Known issues
-- To use the telegram-rethinkDB example you will have to manually create a table named ```messages``` first.
+The web UI will be launched on localhost port ```8081``` and the rethinkDB admin UI on
+port ```8080```.
 
 ### Manually querying the RethinkDB data explorer
 
