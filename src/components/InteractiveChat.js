@@ -3,7 +3,7 @@ import { findIndex } from 'lodash/fp';
 import { rethinkdb as r } from 'rethinkdb-websocket-client';
 import { createStore, applyMiddleware  } from 'redux';
 import { loggerReducer } from '../lib/loggerReducer';
-import { ADD_MESSAGE, CHANGE_INPUT_MESSAGE } from '../lib/actionTypes';
+import { ADD_MESSAGE, CHANGE_INPUT_MESSAGE, CHANGE_INPUT_CHAT_ID, UPDATE_SESSION_CHAT_ID } from '../lib/actionTypes';
 import template from '../templates/InteractiveChat.jsx';
 import {TABLES} from '../lib/rethinkdbHelpers';
 
@@ -80,8 +80,30 @@ const InteractiveChat = ({ initialState, middlewares, connection }) => {
         });
     }
 
+    let onChatIdInput = (ev) => {
+        ev.preventDefault();
+        store.dispatch({
+            type: CHANGE_INPUT_CHAT_ID,
+            payload: {
+                text: ev.target.value
+            }
+        });
+    };
+
+    let onChatChange = (ev) => {
+        ev.preventDefault();
+        let newId = ev.target.dataset.chatId;
+        console.log('CHAT ID SUBMITTED', newId, ev.target.dataset);
+        store.dispatch({
+            type: UPDATE_SESSION_CHAT_ID,
+            payload: {
+                id: newId
+            }
+        });
+    };
+
     let chatId = initialState.currentSession.chatId;
 
-    return template({ store, onSend, onChange, chatId });
+    return template({ store, onSend, onChange, chatId, onChatIdInput, onChatChange });
 };
 export default InteractiveChat;

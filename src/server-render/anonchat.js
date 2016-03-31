@@ -58,7 +58,11 @@ let initialState = {
     currentSession: {
         inputText: '',
         chatId: anonChatId,
-        userId: anonUserId
+        userId: anonUserId,
+        sessionConfigForm: {
+            chatIdInput: anonChatId,
+            userIdInput: anonUserId,
+        }
     }
 };
 

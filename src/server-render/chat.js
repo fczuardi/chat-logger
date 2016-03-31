@@ -16,8 +16,13 @@ let initialState = {
     messages: [],
     users: [],
     currentSession: {
+        inputText: '',
         chatId: null,
-        userId: null
+        userId: null,
+        sessionConfigForm: {
+            chatIdInput: '',
+            userIdInput: '',
+        }
     }
 }
 

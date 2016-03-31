@@ -8,7 +8,9 @@ import {
     SETUP_AMQ,
     ADD_USER,
     ADD_MESSAGE,
-    CHANGE_INPUT_MESSAGE
+    UPDATE_SESSION_CHAT_ID,
+    CHANGE_INPUT_MESSAGE,
+    CHANGE_INPUT_CHAT_ID
     } from './actionTypes';
 
 const initialState = {
@@ -85,8 +87,33 @@ export function loggerReducer(state = initialState, action) {
                     inputText: text
                 }
             };
+        case CHANGE_INPUT_CHAT_ID:
+            return {
+                ...state,
+                currentSession: {
+                    ...state.currentSession,
+                    sessionConfigForm: {
+                        ...state.currentSession.sessionConfigForm,
+                        chatIdInput: text
+                    }
+
+                }
+            }
+        case UPDATE_SESSION_CHAT_ID:
+            return {
+                ...state,
+                currentSession: {
+                    ...state.currentSession,
+                    chatId: id,
+                    sessionConfigForm: {
+                        ...state.currentSession.sessionConfigForm,
+                        chatIdInput: id
+                    }
+
+                }
+            }
         case ADD_MESSAGE:
-            console.log('ACTION', action, chat, chatId, from, userId);
+            // console.log('ACTION', action, chat, chatId, from, userId);
             if (chat && chat.id){
                 chatId = chat.id;
             }

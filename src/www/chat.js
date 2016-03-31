@@ -42,6 +42,10 @@ startApp({
     ...window.initialState,
     currentSession:{
         ...window.initialState.currentSession,
-        chatId: chatId
+        chatId: chatId,
+        sessionConfigForm:{
+            ...window.initialState.currentSession.sessionConfigForm,
+            chatIdInput: chatId
+        }
     }
 });
